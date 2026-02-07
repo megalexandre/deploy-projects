@@ -46,3 +46,8 @@ jobs:
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/deploy-board:latest
             ${{ secrets.DOCKERHUB_USERNAME }}/deploy-board:${{ github.sha }}
+
+      - name: Deploy to Coolify
+        run: |
+          curl -X GET "https://admin.smart4bizz.shop/api/v1/deploy?uuid=f00kk80g8koc8kggs0ko80cs&force=false" \
+          -H "Authorization: Bearer ${{ secrets.COOLIFY_TOKEN }}"
