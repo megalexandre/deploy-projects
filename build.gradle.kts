@@ -39,6 +39,9 @@ dependencies {
 	// Suite para rodar via JUnit 5
 	testImplementation("org.junit.platform:junit-platform-suite")
 	testImplementation("net.java.dev.jna:jna:5.16.0")
+
+	//observabilidade
+	implementation("org.springframework.boot:spring-boot-starter-actuator")
 }
 
 kotlin {

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ops! Algo deu errado</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            padding: 20px;
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 3rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            max-width: 500px;
+            width: 100%;
+        }
+
+        h1 {
+            font-size: 6rem;
+            font-weight: 800;
+            margin-bottom: 0;
+            line-height: 1;
+            background: linear-gradient(to bottom, #fff, rgba(255,255,255,0.3));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            opacity: 0.8;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #fff;
+            color: #764ba2;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .error-details {
+            margin-top: 2rem;
+            font-size: 0.8rem;
+            font-family: monospace;
+            background: rgba(0,0,0,0.2);
+            padding: 10px;
+            border-radius: 8px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1 th:text="${status}">404</h1>
+    <h2>Página não encontrada</h2>
+    <p>Parece que o caminho que você tentou seguir não existe mais ou foi movido para um novo endereço.</p>
+
+    <a href="/" class="btn">Voltar para o Início</a>
+
+    <div class="error-details" th:if="${error}">
+        <div><strong>Caminho:</strong> <span th:text="${path}">/url</span></div>
+        <div><strong>Mensagem:</strong> <span th:text="${message}">Nenhuma mensagem disponível</span></div>
+    </div>
+</div>
+
+</body>
+</html>

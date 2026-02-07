@@ -5,3 +5,12 @@ spring:
   messages:
     basename: messages
     encoding: UTF-8
+
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: health
