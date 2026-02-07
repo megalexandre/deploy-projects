@@ -1,4 +1,4 @@
-package projects.deploy_board.infra
+package projects.infra
 
 import org.springframework.context.MessageSource
 import org.springframework.context.annotation.Bean
@@ -10,18 +10,17 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean
 class ValidationConfig {
 
     @Bean
-    fun messageSource(): MessageSource {
-        val messageSource = ReloadableResourceBundleMessageSource()
-        messageSource.setBasename("classpath:messages")
-        messageSource.setDefaultEncoding("UTF-8")
-        messageSource.setUseCodeAsDefaultMessage(false)
-        return messageSource
-    }
+    @Suppress("UsePropertyAccessSyntax")
+    fun messageSource(): MessageSource = ReloadableResourceBundleMessageSource().apply {
+            setBasename("classpath:messages")
+            setDefaultEncoding("UTF-8")
+            setUseCodeAsDefaultMessage(false)
+        }
 
     @Bean
     fun validator(messageSource: MessageSource): LocalValidatorFactoryBean {
         val bean = LocalValidatorFactoryBean()
-        //bean.setValidationMessageSource(messageSource)
+        bean.setValidationMessageSource(messageSource)
         return bean
     }
 }

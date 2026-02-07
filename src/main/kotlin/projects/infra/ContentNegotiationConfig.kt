@@ -1,4 +1,4 @@
-package projects.deploy_board.infra
+package projects.infra
 
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.MediaType

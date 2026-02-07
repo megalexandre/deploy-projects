@@ -1,7 +1,7 @@
-package projects.deploy_board.core.usecase
+package projects.core.usecase
 
 import org.springframework.stereotype.Service
-import projects.deploy_board.core.model.Project
+import projects.core.model.Project
 
 @Service
 class ProjectCreateUseCase {

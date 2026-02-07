@@ -1,6 +1,6 @@
-package projects.deploy_board.web.port.out
+package projects.web.port.out
 
-import projects.deploy_board.core.model.Project
+import projects.core.model.Project
 
 class ProjectCreateResponse (
     val id: String,

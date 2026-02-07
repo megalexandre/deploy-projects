@@ -1,8 +1,8 @@
-package projects.deploy_board.web.port.`in`
+package projects.web.port.`in`
 
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.Size
-import projects.deploy_board.core.model.Project
+import projects.core.model.Project
 import java.util.*
 
 

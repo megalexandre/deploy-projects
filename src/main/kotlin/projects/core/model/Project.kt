@@ -1,4 +1,4 @@
-package projects.deploy_board.core.model
+package projects.core.model
 
 data class Project(
     val id: String,

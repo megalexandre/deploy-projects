@@ -29,6 +29,16 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
+	// Cucumber
+	testImplementation("io.cucumber:cucumber-java:7.20.1")
+	testImplementation("io.cucumber:cucumber-spring:7.20.1")
+	testImplementation("io.cucumber:cucumber-junit-platform-engine:7.20.1")
+
+	testImplementation("net.javacrumbs.json-unit:json-unit-assertj:3.5.0")
+	// Suite para rodar via JUnit 5
+	testImplementation("org.junit.platform:junit-platform-suite")
+	testImplementation("net.java.dev.jna:jna:5.16.0")
 }
 
 kotlin {
