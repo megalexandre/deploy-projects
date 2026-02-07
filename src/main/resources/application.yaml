@@ -1,3 +1,7 @@
 spring:
   application:
     name: deploy-board
+
+  messages:
+    basename: messages
+    encoding: UTF-8

@@ -46,6 +46,3 @@ jobs:
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/deploy-board:latest
             ${{ secrets.DOCKERHUB_USERNAME }}/deploy-board:${{ github.sha }}
-            
-            
-            

@@ -10,10 +10,10 @@ class ProjectCreateRequest (
     @field:NotBlank(message = "{project.name.notBlank}")
     @field:Size(min = 2, message = "{project.name.size}")
     @field:Size(max = 250, message = "{project.name.size}")
-    val name: String
+    val name: String?
 ){
     fun toDomain() = Project(
         id = UUID.randomUUID().toString(),
-        name = this.name
+        name = this.name!!
     )
 }
