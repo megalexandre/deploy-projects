@@ -6,10 +6,6 @@ import projects.core.model.Project
 @Service
 class ProjectCreateUseCase {
 
-    fun execute(project: Project): Project {
-        return Project(
-            id = project.id,
-            name = project.name
-        )
-    }
+    fun execute(project: Project): Project = project.copy()
+
 }
