@@ -1,5 +1,6 @@
 package projects.resources
 
+import org.springframework.data.domain.Sort
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 import projects.core.model.Project
@@ -21,7 +22,7 @@ class ProjectRepositoryImpl(
     }
 
     override fun findAll(): List<Project> =
-        jpa.findAll().map { it.toDomain() }
+        jpa.findAll(Sort.by(Sort.Direction.ASC, "id")).map { it.toDomain() }
 
     override fun findById(projectId: String): Project? =
         jpa.findById(projectId).orElse(null)?.toDomain()

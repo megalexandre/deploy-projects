@@ -25,6 +25,12 @@ class RestSteps {
     @Autowired
     private lateinit var objectMapper: ObjectMapper
 
+    @When("I GET {string}")
+    fun iGet(endpoint: String) {
+        response = restTemplate.getForEntity(endpoint, String::class.java)
+    }
+
+
     @When("I POST the payload to {string} with body:")
     fun iPostThePayloadToWithBody(endpoint: String, jsonBody: String) {
         val request = HttpEntity(jsonBody, HttpHeaders().apply {
@@ -33,14 +39,12 @@ class RestSteps {
 
         response = restTemplate.postForEntity(endpoint, request, String::class.java)
 
-        // Extrair o ID da resposta se for 201
         if (response?.statusCode?.value() == 201) {
             response?.body?.let { body ->
                 try {
                     val jsonNode = objectMapper.readTree(body)
                     lastCreatedId = jsonNode.get("id")?.asText()
                 } catch (e: Exception) {
-                    // Ignorar se não conseguir parsear
                 }
             }
         }

@@ -1,9 +1,10 @@
 package projects.resources.persistence
 
 import jakarta.persistence.*
-import java.time.Instant
-import java.util.UUID
 import projects.core.model.Project
+import java.time.Instant
+import java.util.*
+import projects.commons.Id as identity
 
 @Entity
 @Table(name = "projects")
@@ -11,7 +12,7 @@ data class ProjectEntity(
 
     @Id
     @Column(name = "id", nullable = false, updatable = false)
-    var id: String = UUID.randomUUID().toString(),
+    var id: String = identity.random(),
 
     @Column(name = "client_id", nullable = false)
     var clientId: String = "",

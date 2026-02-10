@@ -33,6 +33,8 @@ dependencies {
 	implementation("org.flywaydb:flyway-core")
 	implementation("org.flywaydb:flyway-database-postgresql")
 
+	implementation("com.github.f4b6a3:uuid-creator:6.1.0")
+
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 

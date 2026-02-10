@@ -8,6 +8,6 @@ import org.junit.platform.suite.api.Suite
 @Suite
 @IncludeEngines("cucumber")
 @SelectClasspathResource("features")
-@ConfigurationParameter(key = "cucumber.glue", value = "projects")
+@ConfigurationParameter(key = "cucumber.glue", value = "projects/steps")
 @ConfigurationParameter(key = "cucumber.plugin", value = "pretty, html:target/cucumber-report.html")
 class CucumberTest

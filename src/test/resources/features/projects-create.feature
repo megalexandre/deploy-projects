@@ -24,7 +24,7 @@ Feature: Project
     }
     """
     And the id "${json-unit.ignore}" should exist in table "projects"
-
+    Then the table "projects" should have 1 records
 
   Scenario: Create a project with minimum required fields
 
@@ -42,6 +42,7 @@ Feature: Project
     }
     """
     Then the response status code should be 201
+    Then the table "projects" should have 1 records
     Then the response body should contain:
     """
     {

@@ -43,7 +43,7 @@ class DatabaseSteps {
         }
     }
 
-    @Then("the table {string} should have {int} record(s)")
+    @Then("the table {string} should have {int} records")
     fun theTableShouldHaveRecords(tableName: String, expectedCount: Int) {
         val sql = "SELECT COUNT(*) FROM $tableName"
         val actualCount = jdbcTemplate.queryForObject(sql, Int::class.java) ?: 0

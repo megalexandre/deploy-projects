@@ -8,6 +8,7 @@ Feature: Project
     }
     """
     Then the response status code should be 400
+    Then the table "projects" should have 0 records
     Then the response body should contain:
     """
     {
@@ -40,6 +41,7 @@ Feature: Project
     }
     """
     Then the response status code should be 400
+    Then the table "projects" should have 0 records
     Then the response body should contain:
     """
     {
@@ -66,6 +68,7 @@ Feature: Project
     }
     """
     Then the response status code should be 400
+    Then the table "projects" should have 0 records
     Then the response body should contain:
     """
     {

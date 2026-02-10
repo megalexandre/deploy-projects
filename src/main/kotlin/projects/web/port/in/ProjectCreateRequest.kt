@@ -5,8 +5,8 @@ import jakarta.validation.constraints.DecimalMin
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.NotNull
 import jakarta.validation.constraints.Size
+import projects.commons.Id
 import projects.core.model.Project
-import java.util.*
 
 class ProjectCreateRequest (
 
@@ -68,7 +68,7 @@ class ProjectCreateRequest (
     val systemPower: Double?
 ) {
     fun toDomain() = Project(
-        id = UUID.randomUUID().toString(),
+        id = Id.random(),
         clientId = clientId!!,
         utilityCompany = utilityCompany!!,
         utilityProtocol = utilityProtocol!!,
