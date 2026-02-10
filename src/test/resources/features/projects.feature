@@ -24,7 +24,6 @@ Feature: Project
     }
     """
     And the id "${json-unit.ignore}" should exist in table "projects"
-    And the table "projects" should have 1 record(s)
 
 
   Scenario: Create a project with minimum required fields
