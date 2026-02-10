@@ -1,8 +1,7 @@
-package projects.web.port.out
+package projects.web.projects.port.out
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import projects.core.model.Project
-import java.time.Instant
 
 class ProjectPaginateResponse (
 

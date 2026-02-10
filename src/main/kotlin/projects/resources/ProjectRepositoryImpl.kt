@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository
 import projects.core.model.Project
 import projects.core.respository.ProjectRepository
 import projects.resources.persistence.ProjectEntity
+import java.util.*
 
 @Repository
 class ProjectRepositoryImpl(
@@ -16,8 +17,10 @@ class ProjectRepositoryImpl(
          jpa.save(ProjectEntity.from(project)).toDomain()
 
     override fun delete(projectId: String) {
-        if (jpa.existsById(projectId)) {
-            jpa.deleteById(projectId)
+        val key = UUID.fromString(projectId)
+
+        if (jpa.existsById(key)) {
+            jpa.deleteById(key)
         }
     }
 
@@ -25,9 +28,9 @@ class ProjectRepositoryImpl(
         jpa.findAll(Sort.by(Sort.Direction.ASC, "id")).map { it.toDomain() }
 
     override fun findById(projectId: String): Project? =
-        jpa.findById(projectId).orElse(null)?.toDomain()
+        jpa.findById(UUID.fromString(projectId)).orElse(null)?.toDomain()
 
 }
 
 @Repository
-interface SpringDataProjectRepository : JpaRepository<ProjectEntity, String>
+interface SpringDataProjectRepository : JpaRepository<ProjectEntity, UUID>

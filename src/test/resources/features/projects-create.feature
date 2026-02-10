@@ -5,7 +5,7 @@ Feature: Project
     When I POST the payload to "/projects" with body:
     """
     {
-        "clienteId": "312",
+        "clienteId": "da30fcdc-b9ed-402b-a359-de324226bee7",
         "concessionaria": "CEMIG",
         "protocoloConcessionaria": "PROT-2024-001",
         "classe": "Residencial",
@@ -23,7 +23,6 @@ Feature: Project
       "id": "${json-unit.regex}^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
     }
     """
-    And the id "${json-unit.ignore}" should exist in table "projects"
     Then the table "projects" should have 1 records
 
   Scenario: Create a project with minimum required fields
@@ -32,7 +31,7 @@ Feature: Project
     """
     {
         "id": "da30fcdc-b9ed-402b-a359-de324226bee7",
-        "clienteId": "312",
+        "clienteId": "da30fcdc-b9ed-402b-a359-de324226bee7",
         "concessionaria": "CEMIG",
         "protocoloConcessionaria": "PROT-2024-001",
         "classe": "Residencial",

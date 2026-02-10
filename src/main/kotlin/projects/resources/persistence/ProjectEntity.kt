@@ -12,41 +12,42 @@ data class ProjectEntity(
 
     @Id
     @Column(name = "id", nullable = false, updatable = false)
-    var id: String = identity.random(),
+    var id: UUID,
 
     @Column(name = "client_id", nullable = false)
-    var clientId: String = "",
+    var clientId: UUID,
 
     @Column(name = "utility_company", nullable = false)
-    var utilityCompany: String = "",
+    var utilityCompany: String,
 
     @Column(name = "utility_protocol", nullable = false)
-    var utilityProtocol: String = "",
+    var utilityProtocol: String,
 
     @Column(name = "customer_class", nullable = false)
-    var customerClass: String = "",
+    var customerClass: String,
 
     @Column(name = "integrator", nullable = false)
-    var integrator: String = "",
+    var integrator: String,
 
     @Column(name = "modality", nullable = false)
-    var modality: String = "",
+    var modality: String,
 
     @Column(name = "framework", nullable = false)
-    var framework: String = "",
+    var framework: String,
 
     @Column(name = "dc_protection")
-    var dcProtection: String? = null,
+    var dcProtection: String?,
 
     @Column(name = "system_power")
-    var systemPower: Double? = null,
+    var systemPower: Double?,
 
     @Column(name = "created_at", nullable = false, updatable = false)
-    var createdAt: Instant = Instant.now(),
+    var createdAt: Instant,
 
     @Column(name = "updated_at", nullable = false)
-    var updatedAt: Instant = Instant.now()
+    var updatedAt: Instant
 ) {
+
     @PreUpdate
     fun preUpdate() {
         updatedAt = Instant.now()
@@ -54,8 +55,8 @@ data class ProjectEntity(
 
     fun toDomain(): Project =
         Project(
-            id = id,
-            clientId = clientId,
+            id = id.toString(),
+            clientId = clientId.toString(),
             utilityCompany = utilityCompany,
             utilityProtocol = utilityProtocol,
             customerClass = customerClass,
@@ -71,8 +72,8 @@ data class ProjectEntity(
     companion object {
         fun from(domain: Project): ProjectEntity =
             ProjectEntity(
-                id = domain.id.ifBlank { UUID.randomUUID().toString() },
-                clientId = domain.clientId,
+                id = UUID.fromString(domain.id) ,
+                clientId = UUID.fromString(domain.clientId),
                 utilityCompany = domain.utilityCompany,
                 utilityProtocol = domain.utilityProtocol,
                 customerClass = domain.customerClass,

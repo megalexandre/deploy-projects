@@ -15,7 +15,7 @@ Feature: Project
     """
     {
       "id": "da30fcdc-b9ed-402b-a359-de324226bee7",
-      "clientId": "312",
+      "clientId": "da30fcdc-b9ed-402b-a359-de324226bee7",
       "utilityCompany": "CEMIG",
       "utilityProtocol": "PROT-2024-001",
       "customerClass": "Residencial",
@@ -36,7 +36,7 @@ Feature: Project
     [
       {
         "id": "da30fcdc-b9ed-402b-a359-de324226bee7",
-        "clienteId": "312",
+        "clienteId": "da30fcdc-b9ed-402b-a359-de324226bee7",
         "concessionaria": "CEMIG",
         "protocoloConcessionaria": "PROT-2024-001",
         "classe": "Residencial",

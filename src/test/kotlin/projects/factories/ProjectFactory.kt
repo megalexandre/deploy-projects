@@ -5,6 +5,7 @@ import projects.commons.Id
 import projects.core.model.Project
 import projects.resources.persistence.ProjectEntity
 import java.time.Instant
+import java.util.UUID
 
 object ProjectFactory {
 
@@ -50,8 +51,8 @@ object ProjectFactory {
         createdAt: Instant = Instant.now(),
         updatedAt: Instant = Instant.now()
     ): ProjectEntity = ProjectEntity(
-        id = id,
-        clientId = clientId,
+        id = UUID.fromString(id),
+        clientId = UUID.fromString(clientId),
         utilityCompany = utilityCompany,
         utilityProtocol = utilityProtocol,
         customerClass = customerClass,
