@@ -36,15 +36,15 @@ Feature: Project
     [
       {
         "id": "da30fcdc-b9ed-402b-a359-de324226bee7",
-        "clientId": "312",
-        "utilityCompany": "CEMIG",
-        "utilityProtocol": "PROT-2024-001",
-        "customerClass": "Residencial",
+        "clienteId": "312",
+        "concessionaria": "CEMIG",
+        "protocoloConcessionaria": "PROT-2024-001",
+        "classe": "Residencial",
         "integrator": "Solar Tech Solutions",
-        "modality": "Geração Distribuída",
-        "framework": "Microgeração",
-        "dcProtection": "Disjuntor CC 20A",
-        "systemPower": 5.5
+        "modalidade": "Geração Distribuída",
+        "enquadramento": "Microgeração",
+        "protecaoCC": "Disjuntor CC 20A",
+        "potenciaSistema": 5.5
       }
     ]
     """

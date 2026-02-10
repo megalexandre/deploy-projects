@@ -22,6 +22,23 @@ Feature: Project
 
     When I GET "/projects/da30fcdc-b9ed-402b-a359-de324226bee7"
     Then the response status code should be 200
+    Then the response body should contain:
+    """
+    {
+      "id": "da30fcdc-b9ed-402b-a359-de324226bee7",
+      "clienteId": "312",
+      "concessionaria": "CEMIG",
+      "protocoloConcessionaria": "PROT-2024-001",
+      "classe": "Residencial",
+      "integrator": "Solar Tech Solutions",
+      "modalidade": "Geração Distribuída",
+      "enquadramento": "Microgeração",
+      "protecaoCC": "Disjuntor CC 20A",
+      "potenciaSistema": 5.5,
+      "createdAt": "2026-02-10T10:00:00Z",
+      "updatedAt": "2026-02-10T10:00:00Z"
+    }
+    """
 
   Scenario: Get by id a project that not exists
 
