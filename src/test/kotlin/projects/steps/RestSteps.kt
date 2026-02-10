@@ -1,5 +1,6 @@
 package projects.steps
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import io.cucumber.java.en.Then
 import io.cucumber.java.en.When
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -15,10 +16,14 @@ class RestSteps {
 
     companion object {
         var response: ResponseEntity<String>? = null
+        var lastCreatedId: String? = null
     }
 
     @Autowired
     private lateinit var restTemplate: TestRestTemplate
+
+    @Autowired
+    private lateinit var objectMapper: ObjectMapper
 
     @When("I POST the payload to {string} with body:")
     fun iPostThePayloadToWithBody(endpoint: String, jsonBody: String) {
@@ -27,6 +32,18 @@ class RestSteps {
         })
 
         response = restTemplate.postForEntity(endpoint, request, String::class.java)
+
+        // Extrair o ID da resposta se for 201
+        if (response?.statusCode?.value() == 201) {
+            response?.body?.let { body ->
+                try {
+                    val jsonNode = objectMapper.readTree(body)
+                    lastCreatedId = jsonNode.get("id")?.asText()
+                } catch (e: Exception) {
+                    // Ignorar se não conseguir parsear
+                }
+            }
+        }
     }
 
     @Then("the response status code should be {int}")
