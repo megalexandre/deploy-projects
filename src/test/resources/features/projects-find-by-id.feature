@@ -41,3 +41,9 @@ Feature: Project
       }
     ]
     """
+
+  Scenario: Get by id a project that not exists
+
+    When I GET "/projects/da30fcdc-b9ed-402b-a359-de324226bee7"
+    Then the response status code should be 404
+

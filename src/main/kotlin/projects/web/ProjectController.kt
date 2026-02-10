@@ -3,6 +3,7 @@ package projects.web
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
+import org.springframework.web.server.ResponseStatusException
 import projects.core.usecase.project.ProjectCreateUseCase
 import projects.core.usecase.project.ProjectFindAllUseCase
 import projects.core.usecase.project.ProjectFindByIdUseCase
@@ -31,8 +32,9 @@ class ProjectController(
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    fun getById(@PathVariable id: String): ProjectFindByIdResponse? =
+    fun getById(@PathVariable id: String): ProjectFindByIdResponse =
         findById.execute(id)?.toFindByIdResponse()
+            ?: throw ResponseStatusException(HttpStatus.NOT_FOUND)
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
