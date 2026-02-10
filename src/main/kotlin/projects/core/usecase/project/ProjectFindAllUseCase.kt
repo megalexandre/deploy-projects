@@ -1,15 +1,12 @@
-package projects.core.usecase
+package projects.core.usecase.project
 
 import org.springframework.stereotype.Service
 import projects.core.model.Project
 import projects.core.respository.ProjectRepository
 
 @Service
-class ProjectCreateUseCase(
+class ProjectFindAllUseCase(
     private val projectRepository: ProjectRepository
 ) {
-
-    fun execute(project: Project): Project =
-        projectRepository.save(project)
-
+    fun execute(): List<Project> =  projectRepository.findAll()
 }
