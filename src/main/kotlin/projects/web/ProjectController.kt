@@ -3,6 +3,7 @@ package projects.web
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseStatus
@@ -11,6 +12,7 @@ import projects.web.port.`in`.ProjectCreateRequest
 import projects.web.port.out.ProjectCreateResponse
 import projects.web.port.out.toResponse
 import projects.core.usecase.ProjectCreateUseCase
+import projects.web.port.`in`.ProjectUpdateRequest
 
 @RestController
 @RequestMapping("/projects")
@@ -22,5 +24,12 @@ class ProjectController(
     @ResponseStatus(HttpStatus.CREATED)
     fun create(@Valid @RequestBody projectCreateRequest: ProjectCreateRequest): ProjectCreateResponse =
         projectCreateUseCase.execute(projectCreateRequest.toDomain()).toResponse()
+
+    @PutMapping
+    @ResponseStatus(HttpStatus.OK)
+    fun update(@Valid @RequestBody projectUpdateRequest: ProjectUpdateRequest): ProjectCreateResponse =
+        projectCreateUseCase.execute(projectUpdateRequest.toDomain()).toResponse()
+
+
 
 }

@@ -1,59 +1,50 @@
 package projects.web.port.`in`
 
+import com.fasterxml.jackson.annotation.JsonAlias
 import com.fasterxml.jackson.annotation.JsonProperty
 import jakarta.validation.constraints.DecimalMin
 import jakarta.validation.constraints.NotBlank
-import jakarta.validation.constraints.NotNull
 import jakarta.validation.constraints.Size
 import projects.core.model.Project
-import java.util.*
 
-class ProjectCreateRequest (
+class ProjectUpdateRequest (
+
+    @field:JsonProperty("id")
+    @field:NotBlank(message = "{project.id.notBlank}")
+    @field:Size(max = 250, message = "{project.clientId.size}")
+    val id: String?,
 
     @field:JsonProperty("clienteId")
-    @field:NotNull(message = "{project.clientId.notBlank}")
     @field:NotBlank(message = "{project.clientId.notBlank}")
     @field:Size(min = 2, message = "{project.clientId.size}")
     @field:Size(max = 250, message = "{project.clientId.size}")
     val clientId: String?,
 
     @field:JsonProperty("concessionaria")
-    @field:NotNull(message = "{project.utilityCompany.notBlank}")
-    @field:NotBlank(message = "{project.utilityCompany.notBlank}")
     @field:Size(min = 2, message = "{project.utilityCompany.size}")
     @field:Size(max = 250, message = "{project.utilityCompany.size}")
     val utilityCompany: String?,
 
     @field:JsonProperty("protocoloConcessionaria")
-    @field:NotNull(message = "{project.utilityProtocol.notBlank}")
-    @field:NotBlank(message = "{project.utilityProtocol.notBlank}")
     @field:Size(min = 2, message = "{project.utilityProtocol.size}")
     @field:Size(max = 250, message = "{project.utilityProtocol.size}")
     val utilityProtocol: String?,
 
     @field:JsonProperty("classe")
-    @field:NotNull(message = "{project.customerClass.notBlank}")
-    @field:NotBlank(message = "{project.customerClass.notBlank}")
     @field:Size(min = 2, message = "{project.customerClass.size}")
     @field:Size(max = 250, message = "{project.customerClass.size}")
     val customerClass: String?,
 
-    @field:NotNull(message = "{project.integrator.notBlank}")
-    @field:NotBlank(message = "{project.integrator.notBlank}")
     @field:Size(min = 2, message = "{project.integrator.size}")
     @field:Size(max = 250, message = "{project.integrator.size}")
     val integrator: String?,
 
     @field:JsonProperty("modalidade")
-    @field:NotNull(message = "{project.modality.notBlank}")
-    @field:NotBlank(message = "{project.modality.notBlank}")
     @field:Size(min = 2, message = "{project.modality.size}")
     @field:Size(max = 250, message = "{project.modality.size}")
     val modality: String?,
 
     @field:JsonProperty("enquadramento")
-    @field:NotNull(message = "{project.framework.notBlank}")
-    @field:NotBlank(message = "{project.framework.notBlank}")
     @field:Size(min = 2, message = "{project.framework.size}")
     @field:Size(max = 250, message = "{project.framework.size}")
     val framework: String?,
@@ -68,7 +59,7 @@ class ProjectCreateRequest (
     val systemPower: Double?
 ) {
     fun toDomain() = Project(
-        id = UUID.randomUUID().toString(),
+        id = id!!,
         clientId = clientId!!,
         utilityCompany = utilityCompany!!,
         utilityProtocol = utilityProtocol!!,
@@ -76,7 +67,7 @@ class ProjectCreateRequest (
         integrator = integrator!!,
         modality = modality!!,
         framework = framework!!,
-        systemPower = systemPower,
-        dcProtection = dcProtection
+        systemPower = systemPower!!,
+        dcProtection = dcProtection!!
     )
 }
