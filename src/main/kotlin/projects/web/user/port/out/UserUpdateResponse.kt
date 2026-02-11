@@ -2,10 +2,10 @@ package projects.web.user.port.out
 
 import projects.core.model.User
 
-class UserCreateResponse (
+class UserUpdateResponse (
     val id: String,
 )
 
-fun User.toResponse() = UserCreateResponse(
+fun User.toUpdateResponse() = UserUpdateResponse(
     id = this.id,
 )

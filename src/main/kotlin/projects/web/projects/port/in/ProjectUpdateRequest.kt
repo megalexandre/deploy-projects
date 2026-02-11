@@ -3,6 +3,7 @@ package projects.web.projects.port.`in`
 import com.fasterxml.jackson.annotation.JsonProperty
 import jakarta.validation.constraints.DecimalMin
 import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.Pattern
 import jakarta.validation.constraints.Size
 import projects.core.model.Project
 
@@ -11,6 +12,7 @@ class ProjectUpdateRequest (
     @field:JsonProperty("id")
     @field:NotBlank(message = "{project.id.notBlank}")
     @field:Size(max = 250, message = "{project.clientId.size}")
+    @field:Pattern(regexp = "^[a-f0-9-]{36}$", flags = [Pattern.Flag.CASE_INSENSITIVE], message = "{uuid.invalid}")
     val id: String?,
 
     @field:JsonProperty("clienteId")
