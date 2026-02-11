@@ -1,0 +1,1 @@
+Alter table users ADD COLUMN password TEXT NOT NULL;

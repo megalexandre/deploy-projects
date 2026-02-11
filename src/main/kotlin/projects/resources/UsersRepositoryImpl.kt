@@ -30,7 +30,12 @@ class UsersRepositoryImpl(
     override fun findById(id: String): User? =
         jpa.findById(UUID.fromString(id) ).orElse(null)?.toDomain()
 
+    override fun findByEmail(email: String): User? =
+        jpa.findByEmail(email)?.toDomain()
+
 }
 
 @Repository
-interface SpringDataUsersRepository : JpaRepository<UserEntity, UUID>
+interface SpringDataUsersRepository : JpaRepository<UserEntity, UUID> {
+    fun findByEmail(email: String): UserEntity?
+}

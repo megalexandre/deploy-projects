@@ -13,11 +13,14 @@ data class UserEntity(
     @Column(name = "id", nullable = false, updatable = false)
     var id: UUID,
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, unique = true)
     var name: String,
 
     @Column(name = "email", nullable = false)
     var email: String,
+
+    @Column(name = "password", nullable = false)
+    var password: String,
 
     @Column(name = "profile", nullable = false)
     var profile: String,
@@ -39,6 +42,7 @@ data class UserEntity(
             id = id.toString(),
             name = name,
             email = email,
+            password = password,
             profile = profile,
             createdAt = createdAt,
             updatedAt = updatedAt
@@ -50,6 +54,7 @@ data class UserEntity(
                 id = UUID.fromString( domain.id),
                 name = domain.name,
                 email = domain.email,
+                password = domain.password,
                 profile = domain.profile,
                 createdAt = domain.createdAt ?: Instant.now(),
                 updatedAt = domain.updatedAt ?: Instant.now()

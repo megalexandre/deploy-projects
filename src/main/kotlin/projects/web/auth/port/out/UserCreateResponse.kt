@@ -1,4 +1,4 @@
-package projects.web.user.port.out
+package projects.web.auth.port.out
 
 import projects.core.model.User
 
