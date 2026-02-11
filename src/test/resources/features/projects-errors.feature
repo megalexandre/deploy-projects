@@ -26,12 +26,12 @@ Feature: Project
     }
     """
 
-  Scenario: try to create a project with clientId more than 250 characters
+  Scenario: try to create a project with invalid clientId
 
     When I POST the payload to "/projects" with body:
     """
     {
-        "clienteId": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        "clienteId": "1231",
         "concessionaria": "CEMIG",
         "protocoloConcessionaria": "PROT-001",
         "classe": "Residencial",
@@ -48,34 +48,7 @@ Feature: Project
       "status": 400,
       "message": "Validation Failed",
       "errors": {
-          "clientId": "O cliente deve ter entre 2 e 250 caracteres."
-      }
-    }
-    """
-
-  Scenario: try to create a project with clientId less than 2 characters
-
-    When I POST the payload to "/projects" with body:
-    """
-    {
-        "clienteId": "A",
-        "concessionaria": "CEMIG",
-        "protocoloConcessionaria": "PROT-001",
-        "classe": "Residencial",
-        "integrator": "Solar Tech",
-        "modalidade": "GD",
-        "enquadramento": "Micro"
-    }
-    """
-    Then the response status code should be 400
-    Then the table "projects" should have 0 records
-    Then the response body should contain:
-    """
-    {
-      "status": 400,
-      "message": "Validation Failed",
-      "errors": {
-          "clientId": "O cliente deve ter entre 2 e 250 caracteres."
+          "clientId": "O UUID informado é inválido."
       }
     }
     """
