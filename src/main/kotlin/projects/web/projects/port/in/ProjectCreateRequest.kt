@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import jakarta.validation.constraints.DecimalMin
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.NotNull
+import jakarta.validation.constraints.Pattern
 import jakarta.validation.constraints.Size
 import projects.commons.Id
 import projects.core.model.Project
@@ -15,6 +16,7 @@ class ProjectCreateRequest (
     @field:NotBlank(message = "{project.clientId.notBlank}")
     @field:Size(min = 2, message = "{project.clientId.size}")
     @field:Size(max = 250, message = "{project.clientId.size}")
+    @field:Pattern(regexp = "^[a-f0-9-]{36}$", flags = [Pattern.Flag.CASE_INSENSITIVE], message = "{uuid.invalid}")
     val clientId: String?,
 
     @field:JsonProperty("concessionaria")
