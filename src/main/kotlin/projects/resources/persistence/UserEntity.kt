@@ -16,7 +16,7 @@ data class UserEntity(
     @Column(name = "name", nullable = false, unique = true)
     var name: String,
 
-    @Column(name = "email", nullable = false)
+    @Column(name = "email", nullable = false, unique = true)
     var email: String,
 
     @Column(name = "password", nullable = false)
