@@ -1,5 +1,8 @@
 Feature: Project
 
+  Background:
+    Given I am authenticated
+
   Scenario: Get all projects when there are no projects
 
     When I GET "/projects"

@@ -2,6 +2,11 @@ spring:
   application:
     name: deploy-board-test
 
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/appdb}
+    username: ${SPRING_DATASOURCE_USERNAME:app}
+    password: ${SPRING_DATASOURCE_PASSWORD:secret}
+
   jpa:
     hibernate:
       ddl-auto: none
@@ -17,9 +22,22 @@ spring:
     baseline-on-migrate: true
     clean-disabled: false
 
+jwt:
+  secret: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
+  expiration: 86400000
+
 logging:
   level:
     org.hibernate.SQL: DEBUG
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
     org.testcontainers: INFO
     com.github.dockerjava: WARN
+
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: health

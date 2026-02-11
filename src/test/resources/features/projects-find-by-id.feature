@@ -1,5 +1,8 @@
 Feature: Project
 
+  Background:
+    Given I am authenticated
+
   Scenario: Get by id a project that exists
 
     Given the following project exists in the database:

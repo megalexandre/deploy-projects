@@ -3,14 +3,15 @@ package projects.steps
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.cucumber.java.en.Then
 import io.cucumber.java.en.When
+import net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.web.client.TestRestTemplate
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
+import org.springframework.http.HttpMethod
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
-import net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson
 
 class RestSteps {
 
@@ -27,7 +28,17 @@ class RestSteps {
 
     @When("I GET {string}")
     fun iGet(endpoint: String) {
-        response = restTemplate.getForEntity(endpoint, String::class.java)
+
+        val entity = HttpEntity<Unit>(HttpHeaders().apply {
+            setBearerAuth(TestContext.token!!)
+        })
+
+        response = restTemplate.exchange(
+            endpoint,
+            HttpMethod.GET,
+            entity,
+            String::class.java
+        )
     }
 
 
@@ -35,6 +46,7 @@ class RestSteps {
     fun iPostThePayloadToWithBody(endpoint: String, jsonBody: String) {
         val request = HttpEntity(jsonBody, HttpHeaders().apply {
             contentType = MediaType.APPLICATION_JSON
+            setBearerAuth(TestContext.token!!)
         })
 
         response = restTemplate.postForEntity(endpoint, request, String::class.java)
