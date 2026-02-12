@@ -24,7 +24,6 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-security")
-
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 
@@ -36,11 +35,14 @@ dependencies {
 	runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.12.3")
 
 	// Database
+
 	runtimeOnly("org.postgresql:postgresql")
 	implementation("org.flywaydb:flyway-core")
 	implementation("org.flywaydb:flyway-database-postgresql")
 
 	implementation("com.github.f4b6a3:uuid-creator:6.1.0")
+
+
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
@@ -57,14 +59,11 @@ dependencies {
 	testImplementation("io.cucumber:cucumber-junit-platform-engine:7.20.1")
 
 	testImplementation("net.javacrumbs.json-unit:json-unit-assertj:3.5.0")
-	// Suite para rodar via JUnit 5
 	testImplementation("org.junit.platform:junit-platform-suite")
 	testImplementation("net.java.dev.jna:jna:5.16.0")
 
-	//observabilidade
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.7.0")
-
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 

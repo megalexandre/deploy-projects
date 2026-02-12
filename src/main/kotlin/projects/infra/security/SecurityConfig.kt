@@ -33,8 +33,10 @@ class SecurityConfig(
 
                     // Swagger/OpenAPI endpoints
                     .requestMatchers("/swagger-ui/**").permitAll()
+
                     .requestMatchers("/swagger-ui.html").permitAll()
                     .requestMatchers("/v3/api-docs/**").permitAll()
+                    .requestMatchers("/docs", "/docs/**").permitAll()
 
                     .requestMatchers("/error").permitAll()
                     .requestMatchers("/error/**").permitAll()
