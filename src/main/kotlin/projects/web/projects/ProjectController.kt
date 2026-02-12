@@ -23,7 +23,6 @@ class ProjectController(
     ) {
 
     @PostMapping
-    @PostAuthorize("hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     fun create(@Valid @RequestBody projectCreateRequest: ProjectCreateRequest): ProjectCreateResponse =
         create.execute(projectCreateRequest.toDomain()).toResponse()
@@ -34,7 +33,6 @@ class ProjectController(
         create.execute(projectUpdateRequest.toDomain()).toResponse()
 
     @GetMapping("/{id}")
-    @PostAuthorize("hasRole('ADMIN')")
     fun getById(@PathVariable id: String): ResponseEntity<ProjectFindByIdResponse> =
         findById.execute(id)?.toFindByIdResponse().toResponseEntity()
 
