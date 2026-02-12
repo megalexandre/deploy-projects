@@ -2,11 +2,14 @@ package projects.web.auth
 
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
+import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.*
 import projects.core.usecase.auth.SignInUseCase
 import projects.core.usecase.auth.UserCreateUseCase
+import projects.infra.security.CustomUserDetails
 import projects.web.auth.port.`in`.LoginRequest
 import projects.web.auth.port.`in`.UserCreateRequest
+import projects.web.auth.port.out.CustomUserDetailsResponse
 import projects.web.auth.port.out.LoginResponse
 import projects.web.auth.port.out.UserCreateResponse
 import projects.web.auth.port.out.toResponse
@@ -29,5 +32,10 @@ class AuthController(
         val token = singIn.execute(loginRequest.email, loginRequest.password)
         return LoginResponse(token = token)
     }
+
+    @GetMapping("/me")
+    @ResponseStatus(HttpStatus.OK)
+    fun me(@AuthenticationPrincipal userDetails: CustomUserDetails): CustomUserDetailsResponse =
+        userDetails.toResponse()
 
 }

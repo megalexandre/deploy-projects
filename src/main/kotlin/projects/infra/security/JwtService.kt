@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.stereotype.Service
 import java.util.*
 import javax.crypto.SecretKey
+import kotlin.text.get
 
 @Service
 class JwtService {
@@ -27,7 +28,14 @@ class JwtService {
     }
 
     fun generateToken(userDetails: UserDetails): String {
-        return generateToken(HashMap(), userDetails)
+        val extraClaims = if(userDetails is CustomUserDetails){
+            mapOf("userId" to userDetails.userId)
+        } else {
+            HashMap()
+        }
+
+
+        return generateToken(extraClaims, userDetails)
     }
 
     fun generateToken(extraClaims: Map<String, Any>, userDetails: UserDetails): String {
@@ -43,6 +51,7 @@ class JwtService {
             .builder()
             .claims(extraClaims)
             .subject(userDetails.username)
+
             .issuedAt(Date(System.currentTimeMillis()))
             .expiration(Date(System.currentTimeMillis() + expiration))
             .signWith(getSignInKey())
@@ -69,6 +78,10 @@ class JwtService {
             .build()
             .parseSignedClaims(token)
             .payload
+    }
+
+    fun extractUserId(token: String): String? {
+        return extractClaim(token) { claims -> claims["userId"] as? String }
     }
 
     private fun getSignInKey(): SecretKey {

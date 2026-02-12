@@ -31,6 +31,15 @@ class SecurityConfig(
                     .requestMatchers("/actuator/**").permitAll()
                     .requestMatchers("/error/**").permitAll()
 
+                    // Swagger/OpenAPI endpoints
+                    .requestMatchers("/swagger-ui/**").permitAll()
+                    .requestMatchers("/swagger-ui.html").permitAll()
+                    .requestMatchers("/v3/api-docs/**").permitAll()
+
+                    .requestMatchers("/error").permitAll()
+                    .requestMatchers("/error/**").permitAll()
+
+
                     .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                     .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
 
@@ -42,12 +51,10 @@ class SecurityConfig(
     }
 
     @Bean
-    fun passwordEncoder(): PasswordEncoder {
-        return BCryptPasswordEncoder()
-    }
+    fun passwordEncoder(): PasswordEncoder = BCryptPasswordEncoder()
+
 
     @Bean
-    fun authenticationManager(authenticationConfiguration: AuthenticationConfiguration): AuthenticationManager {
-        return authenticationConfiguration.authenticationManager
-    }
+    fun authenticationManager(authenticationConfiguration: AuthenticationConfiguration): AuthenticationManager =
+         authenticationConfiguration.authenticationManager
 }

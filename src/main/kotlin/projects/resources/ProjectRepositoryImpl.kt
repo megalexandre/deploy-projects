@@ -5,12 +5,14 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 import projects.core.model.Project
 import projects.core.respository.ProjectRepository
+import projects.infra.security.CurrentUserProvider
 import projects.resources.persistence.ProjectEntity
 import java.util.*
 
 @Repository
 class ProjectRepositoryImpl(
-    private val jpa: SpringDataProjectRepository
+    private val jpa: SpringDataProjectRepository,
+    private val currentUserProvider: CurrentUserProvider,
 ): ProjectRepository {
 
     override fun save(project: Project): Project  =
@@ -24,8 +26,10 @@ class ProjectRepositoryImpl(
         }
     }
 
-    override fun findAll(): List<Project> =
-        jpa.findAll(Sort.by(Sort.Direction.ASC, "id")).map { it.toDomain() }
+    override fun findAll(): List<Project>{
+        currentUserProvider.getCurrentUser()?.userId
+        return jpa.findAll(Sort.by(Sort.Direction.ASC, "id")).map { it.toDomain() }
+    }
 
     override fun findById(projectId: String): Project? =
         jpa.findById(UUID.fromString(projectId)).orElse(null)?.toDomain()
@@ -33,4 +37,5 @@ class ProjectRepositoryImpl(
 }
 
 @Repository
-interface SpringDataProjectRepository : JpaRepository<ProjectEntity, UUID>
+interface SpringDataProjectRepository : JpaRepository<ProjectEntity, UUID>{
+}

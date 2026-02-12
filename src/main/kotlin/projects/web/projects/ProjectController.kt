@@ -3,6 +3,8 @@ package projects.web.projects
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.security.access.prepost.PostAuthorize
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.*
 import projects.core.usecase.project.ProjectCreateUseCase
 import projects.core.usecase.project.ProjectFindAllUseCase
@@ -21,6 +23,7 @@ class ProjectController(
     ) {
 
     @PostMapping
+    @PostAuthorize("hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     fun create(@Valid @RequestBody projectCreateRequest: ProjectCreateRequest): ProjectCreateResponse =
         create.execute(projectCreateRequest.toDomain()).toResponse()
@@ -31,6 +34,7 @@ class ProjectController(
         create.execute(projectUpdateRequest.toDomain()).toResponse()
 
     @GetMapping("/{id}")
+    @PostAuthorize("hasRole('ADMIN')")
     fun getById(@PathVariable id: String): ResponseEntity<ProjectFindByIdResponse> =
         findById.execute(id)?.toFindByIdResponse().toResponseEntity()
 

@@ -63,6 +63,7 @@ dependencies {
 
 	//observabilidade
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
+	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.7.0")
 
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
