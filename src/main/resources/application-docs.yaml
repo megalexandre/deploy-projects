@@ -1,0 +1,10 @@
+# Configurações de Documentação (Swagger/OpenAPI)
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /docs
+    enabled: true
+    operationsSorter: method
+    tagsSorter: alpha
+  show-actuator: false
