@@ -66,7 +66,6 @@ dependencies {
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.7.0")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
-	//observabilidade
 	implementation("io.micrometer:micrometer-registry-prometheus:1.16.3")
 }
 

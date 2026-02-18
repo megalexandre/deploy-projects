@@ -1,6 +1,8 @@
 spring:
   application:
     name: deploy-board
+  profiles:
+    active: local
 
   messages:
     basename: messages
@@ -10,12 +12,12 @@ spring:
     resources:
       add-mappings: true
 
-  profiles:
-    include:
-      - database
-      - security
-      - docs
-      - monitoring
+  config:
+    import:
+      - classpath:application-database.yaml
+      - classpath:application-security.yaml
+      - classpath:application-docs.yaml
+      - classpath:application-monitoring.yaml
 
 server:
   error:
