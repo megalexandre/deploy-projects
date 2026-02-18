@@ -30,7 +30,7 @@ class RestSteps {
     fun iGet(endpoint: String) {
 
         val entity = HttpEntity<Unit>(HttpHeaders().apply {
-            setBearerAuth(TestContext.token!!)
+            TestContext.token?.let { setBearerAuth(it) }
         })
 
         response = restTemplate.exchange(
@@ -46,7 +46,7 @@ class RestSteps {
     fun iPostThePayloadToWithBody(endpoint: String, jsonBody: String) {
         val request = HttpEntity(jsonBody, HttpHeaders().apply {
             contentType = MediaType.APPLICATION_JSON
-            setBearerAuth(TestContext.token!!)
+            TestContext.token?.let { setBearerAuth(it) }
         })
 
         response = restTemplate.postForEntity(endpoint, request, String::class.java)

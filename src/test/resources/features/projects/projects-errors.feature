@@ -1,8 +1,5 @@
 Feature: Project
 
-  Background:
-    Given I am authenticated
-
   Scenario: try to create a project without required fields
 
     When I POST the payload to "/projects" with body:

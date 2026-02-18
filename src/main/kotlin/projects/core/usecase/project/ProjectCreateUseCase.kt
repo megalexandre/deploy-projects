@@ -15,6 +15,7 @@ class ProjectCreateUseCase(
     private val logger = LoggerFactory.getLogger(ProjectCreateUseCase::class.java)
 
     fun execute(project: Project): Project =
+
         projectRepository.save(project).also {
             metricsService.incrementProjectCreated()
         }

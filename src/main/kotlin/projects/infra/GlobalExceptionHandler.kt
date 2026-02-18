@@ -2,6 +2,7 @@ package projects.infra
 
 import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.http.HttpStatus
+import org.springframework.security.authentication.BadCredentialsException
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.ResponseStatus
@@ -100,6 +101,16 @@ class GlobalExceptionHandler {
                 )
             }
         }
+    }
+
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ExceptionHandler(BadCredentialsException::class)
+    fun handleBadCredentials(ex: BadCredentialsException): ErrorResponse {
+        return ErrorResponse(
+            status = HttpStatus.UNAUTHORIZED.value(),
+            message = "Usuário inexistente ou senha inválida",
+            errors = emptyMap()
+        )
     }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)

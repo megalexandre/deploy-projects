@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class ProjectMetricsService(
-    meterRegistry: MeterRegistry
+    val meterRegistry: MeterRegistry
 ) {
 
     private val projectCreatedCounter: Counter = Counter.builder("projects_created")

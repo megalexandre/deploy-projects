@@ -25,33 +25,28 @@ class ProjectController(
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    fun create(@Valid @RequestBody projectCreateRequest: ProjectCreateRequest): ProjectCreateResponse {
-        logger.info("Creating new project with clientId: {}", projectCreateRequest.clientId)
-        val result = create.execute(projectCreateRequest.toDomain()).toResponse()
-        logger.info("Project created successfully with id: {}", result.id)
-        return result
-    }
+    fun create(@Valid @RequestBody projectCreateRequest: ProjectCreateRequest): ProjectCreateResponse =
+        create.execute(projectCreateRequest.toDomain()).toResponse().also{
+            logger.info("Project created successfully with id: {}", it.id)
+        }
 
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
-    fun update(@Valid @RequestBody projectUpdateRequest: ProjectUpdateRequest): ProjectCreateResponse {
-        logger.info("Updating project with id: {}", projectUpdateRequest.id)
-        val result = create.execute(projectUpdateRequest.toDomain()).toResponse()
-        logger.info("Project updated successfully with id: {}", result.id)
-        return result
-    }
+    fun update(@Valid @RequestBody projectUpdateRequest: ProjectUpdateRequest): ProjectCreateResponse =
+        create.execute(projectUpdateRequest.toDomain()).toResponse().also {
+            logger.info("Project updated successfully with id: {}", it.id)
+        }
 
     @GetMapping("/{id}")
-    fun getById(@PathVariable id: String): ResponseEntity<ProjectFindByIdResponse> {
-        logger.info("Fetching project with id: {}", id)
-        val result = findById.execute(id)?.toFindByIdResponse().toResponseEntity()
-        if (result.statusCode == HttpStatus.OK) {
-            logger.info("Project found with id: {}", id)
-        } else {
-            logger.warn("Project not found with id: {}", id)
+    fun getById(@PathVariable id: String): ResponseEntity<ProjectFindByIdResponse> =
+        findById.execute(id)?.toFindByIdResponse().toResponseEntity().also {
+            if (it.statusCode == HttpStatus.OK) {
+                logger.info("Project found with id: {}", id)
+            } else {
+                logger.warn("Project not found with id: {}", id)
+            }
         }
-        return result
-    }
+
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
