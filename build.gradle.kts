@@ -35,10 +35,12 @@ dependencies {
 	runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.12.3")
 
 	// Database
-
 	runtimeOnly("org.postgresql:postgresql")
 	implementation("org.flywaydb:flyway-core")
 	implementation("org.flywaydb:flyway-database-postgresql")
+
+	// Hibernate Envers - Auditoria
+	implementation("org.hibernate.orm:hibernate-envers")
 
 	implementation("com.github.f4b6a3:uuid-creator:6.1.0")
 
@@ -67,6 +69,8 @@ dependencies {
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
 	implementation("io.micrometer:micrometer-registry-prometheus:1.16.3")
+
+	implementation("net.logstash.logback:logstash-logback-encoder:8.0")
 }
 
 kotlin {
