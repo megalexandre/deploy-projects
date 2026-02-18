@@ -12,5 +12,8 @@ class DatabaseHooks {
     @Before
     fun cleanDatabase() {
         jdbcTemplate.execute("TRUNCATE TABLE projects CASCADE")
+        jdbcTemplate.execute("TRUNCATE TABLE users CASCADE")
+        TestContext.token = null
+        TestContext.currentUserId = null
     }
 }
