@@ -5,10 +5,13 @@ import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import projects.core.usecase.project.ProjectBatchCreateUseCase
 import projects.core.usecase.project.ProjectCreateUseCase
 import projects.core.usecase.project.ProjectFindAllUseCase
 import projects.core.usecase.project.ProjectFindByIdUseCase
 import projects.infra.extensions.toResponseEntity
+import projects.infra.fileconverter.BatchRequest
+import projects.web.projects.port.`in`.ProjectBatchCreateRequest
 import projects.web.projects.port.`in`.ProjectCreateRequest
 import projects.web.projects.port.`in`.ProjectUpdateRequest
 import projects.web.projects.port.out.*
@@ -18,7 +21,8 @@ import projects.web.projects.port.out.*
 class ProjectController(
     private val create: ProjectCreateUseCase,
     private val findById: ProjectFindByIdUseCase,
-    private val findAll: ProjectFindAllUseCase
+    private val findAll: ProjectFindAllUseCase,
+    private val batchCreate: ProjectBatchCreateUseCase
     ) {
 
     private val logger = LoggerFactory.getLogger(ProjectController::class.java)
@@ -54,5 +58,15 @@ class ProjectController(
         findAll.execute().map { it.toPaginateResponse() }.also {
             logger.info("Fetching all projects, Found {} projects", it.size)
         }
+
+    @PostMapping("/batch")
+    @ResponseStatus(HttpStatus.CREATED)
+    fun createBatchJson(
+        @Valid @BatchRequest batchRequest: ProjectBatchCreateRequest
+    ): ProjectBatchCreateResponse {
+        logger.info("Starting batch creation of {} projects", batchRequest.projects.size)
+        val result = batchCreate.execute(batchRequest.projects.map { it.toDomain() })
+        return result.toBatchCreateResponse()
+    }
 
 }

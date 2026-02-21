@@ -34,24 +34,6 @@ Feature: Project
     """
     {
         "id": "da30fcdc-b9ed-402b-a359-de324226bee7",
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         "clienteId": "da30fcdc-b9ed-402b-a359-de324226bee7",
         "concessionaria": "CEMIG",
         "protocoloConcessionaria": "PROT-2024-001",

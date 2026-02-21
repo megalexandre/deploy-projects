@@ -14,7 +14,7 @@ Regras gerais de implementação
 1. Mantenha os nomes dos pacotes e das classes existentes. Prefira adicionar novos arquivos sob os pacotes já usados (por exemplo `projects.core.*`, `projects.resources.*`, `projects.steps`).
 2. Faça mudanças mínimas e localizadas: evite reformatar arquivos não relacionados.
 3. Antes de criar novos endpoints ou alterar `application.yaml`, tente reutilizar as propriedades/beans existentes. Não crie um segundo arquivo `application-*.yaml` salvo necessidade explícita.
-4. Sempre adicione/atualize testes (unit/integration) quando mudar comportamento público.
+4. **Sempre adicione/atualize testes .feature (Cucumber) quando mudar comportamento público. NÃO crie testes unitários.**
 5. Ao introduzir dependências, edite `build.gradle.kts`. Prefira bibliotecas populares e estáveis. Depois execute a verificação de erros (ferramenta do repositório) para garantir compilação.
 
 Kotlin / Estilo de código
@@ -64,16 +64,20 @@ Mapeamentos
 
 Testes
 
-- Use JUnit 5 + Spring Boot Test para integration tests.
-- Use Testcontainers for Postgres quando executar testes de integração que dependam do banco.
-- Cucumber: step definitions em `src/test/kotlin/projects/steps/`.
+**IMPORTANTE: Este projeto NÃO usa testes unitários. Apenas testes .feature (Cucumber).**
+
+- Todos os testes devem ser escritos como arquivos `.feature` em `src/test/resources/features/`.
+- Use Cucumber + Spring Boot Test + Testcontainers for Postgres para testes de integração.
+- Step definitions em `src/test/kotlin/projects/steps/`.
 - Forneça factories em `src/test/kotlin/projects/factories/ProjectFactory.kt` para criar domínio e entidade.
+- NÃO crie testes unitários com `@Test` isolados. Se precisar testar comportamento, crie um cenário `.feature`.
 
 Cucumber / Steps
 
 - Coloque steps pequenos e específicos. Exemplo para Given que insere projeto no DB:
   - Desserializar JSON para `Project` com `ObjectMapper`, converter para `ProjectEntity` e salvar com `SpringDataProjectRepository`.
 - Capture o `id` salvo em `RestSteps.lastCreatedId` quando necessário.
+- Organize os arquivos `.feature` por domínio/funcionalidade (ex: `auth/login.feature`, `projects/create_project.feature`).
 
 Boas práticas para PRs e commits
 
@@ -84,7 +88,7 @@ Checklist que a IA deve seguir antes de qualquer edição
 
 - [ ] Encontre arquivos relevantes (model, entity, repository, feature) com `file_search` ou leitura.
 - [ ] Proponha mudanças com mínimo impacto (edits locais).
-- [ ] Adicione/atualize testes para cobrir o comportamento.
+- [ ] Adicione/atualize testes .feature para cobrir o comportamento (NÃO crie testes unitários).
 - [ ] Rode a verificação de erros do projeto e corrija problemas.
 - [ ] Informe o usuário do que foi alterado e os próximos passos para executar testes.
 

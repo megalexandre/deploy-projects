@@ -20,6 +20,7 @@ repositories {
 	mavenCentral()
 }
 
+
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
@@ -36,15 +37,20 @@ dependencies {
 
 	// Database
 	runtimeOnly("org.postgresql:postgresql")
-	implementation("org.flywaydb:flyway-core")
-	implementation("org.flywaydb:flyway-database-postgresql")
+	implementation("org.flywaydb:flyway-core:11.20.3")
+	implementation("org.flywaydb:flyway-database-postgresql:11.20.3")
 
 	// Hibernate Envers - Auditoria
 	implementation("org.hibernate.orm:hibernate-envers")
 
 	implementation("com.github.f4b6a3:uuid-creator:6.1.0")
 
+	// CSV Parser
+	implementation("org.apache.commons:commons-csv:1.10.0")
 
+	// Apache POI - Excel Parser
+	implementation("org.apache.poi:poi:5.2.5")
+	implementation("org.apache.poi:poi-ooxml:5.2.5")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
@@ -65,7 +71,7 @@ dependencies {
 	testImplementation("net.java.dev.jna:jna:5.16.0")
 
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
-	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.7.0")
+	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.4")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
 	implementation("io.micrometer:micrometer-registry-prometheus:1.16.3")
