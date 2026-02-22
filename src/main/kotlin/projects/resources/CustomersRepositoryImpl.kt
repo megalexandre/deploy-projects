@@ -3,18 +3,21 @@ package projects.resources
 import org.springframework.data.domain.Sort
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
+import projects.core.model.Customer
 import projects.core.model.User
+import projects.core.respository.CustomerRepository
 import projects.core.respository.UserRepository
+import projects.resources.persistence.CustomerEntity
 import projects.resources.persistence.UserEntity
 import java.util.UUID
 
 @Repository
-class UsersRepositoryImpl(
-    private val jpa: SpringDataUsersRepository
-): UserRepository {
+class CustomerRepositoryImpl(
+    private val jpa: SpringDataCustomerRepository
+): CustomerRepository {
 
-    override fun save(t: User): User  =
-         jpa.save(UserEntity.from(t)).toDomain()
+    override fun save(t: Customer): Customer  =
+         jpa.save(CustomerEntity.from(t)).toDomain()
 
     override fun delete(id: String) {
         val key = UUID.fromString(id)
@@ -24,18 +27,13 @@ class UsersRepositoryImpl(
         }
     }
 
-    override fun findAll(): List<User> =
+    override fun findAll(): List<Customer> =
         jpa.findAll(Sort.by(Sort.Direction.ASC, "id")).map { it.toDomain() }
 
-    override fun findById(id: String): User? =
+    override fun findById(id: String): Customer? =
         jpa.findById(UUID.fromString(id) ).orElse(null)?.toDomain()
-
-    override fun findByEmail(email: String): User? =
-        jpa.findByEmail(email)?.toDomain()
 
 }
 
 @Repository
-interface SpringDataUsersRepository : JpaRepository<UserEntity, UUID> {
-    fun findByEmail(email: String): UserEntity?
-}
+interface SpringDataCustomerRepository : JpaRepository<CustomerEntity, UUID>

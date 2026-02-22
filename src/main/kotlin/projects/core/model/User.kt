@@ -2,12 +2,12 @@ package projects.core.model
 
 import java.time.Instant
 
-class Customer (
+data class User (
     val id: String,
     val name: String,
-    val taxId: String,
-    val phone: String,
     val email: String,
+    val password: String,
+    val profile: String,
     val createdAt: Instant? = null,
     val updatedAt: Instant? = null
 )

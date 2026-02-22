@@ -11,8 +11,20 @@ class DatabaseHooks {
 
     @Before
     fun cleanDatabase() {
-        jdbcTemplate.execute("TRUNCATE TABLE projects CASCADE")
-        jdbcTemplate.execute("TRUNCATE TABLE users CASCADE")
+        val tables = jdbcTemplate.queryForList(
+            """
+            SELECT tablename 
+            FROM pg_tables 
+            WHERE schemaname = 'public' 
+            AND tablename != 'flyway_schema_history'
+            """,
+            String::class.java
+        )
+
+        tables.forEach { table ->
+            jdbcTemplate.execute("TRUNCATE TABLE $table CASCADE")
+        }
+
         TestContext.token = null
         TestContext.currentUserId = null
     }
