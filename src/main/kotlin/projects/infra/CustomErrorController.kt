@@ -18,10 +18,10 @@ class CustomErrorController : ErrorController {
             val statusCode = Integer.valueOf(status.toString())
             
             if (statusCode == HttpStatus.NOT_FOUND.value()) {
-                return "forward:/erro/404.html"
+                return "forward:/error/404.html"
             }
         }
         
-        return "forward:/erro/404.html"
+        return "forward:/error/404.html"
     }
 }

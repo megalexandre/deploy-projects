@@ -7,6 +7,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestControllerAdvice
+import org.springframework.web.servlet.resource.NoResourceFoundException
 import projects.core.exceptions.DuplicateResourceException
 import projects.core.exceptions.InvalidCredentialsException
 import projects.core.exceptions.ResourceNotFoundException
@@ -53,6 +54,16 @@ class GlobalExceptionHandler {
             status = HttpStatus.NOT_FOUND.value(),
             message = ex.message,
             errors = emptyMap()
+        )
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(NoResourceFoundException::class)
+    fun handleNoResourceFound(ex: NoResourceFoundException): ErrorResponse {
+        return ErrorResponse(
+            status = HttpStatus.NOT_FOUND.value(),
+            message = "The requested endpoint was not found",
+            errors = mapOf("path" to ex.resourcePath)
         )
     }
 
