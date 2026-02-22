@@ -67,6 +67,35 @@ class RestSteps {
         }
     }
 
+    @When("I PUT the payload to {string} with body:")
+    fun iPutThePayloadToWithBody(endpoint: String, jsonBody: String) {
+        val request = HttpEntity(jsonBody, HttpHeaders().apply {
+            contentType = MediaType.APPLICATION_JSON
+            TestContext.token?.let { setBearerAuth(it) }
+        })
+
+        response = restTemplate.exchange(
+            endpoint,
+            HttpMethod.PUT,
+            request,
+            String::class.java
+        )
+    }
+
+    @When("I DELETE {string}")
+    fun iDelete(endpoint: String) {
+        val entity = HttpEntity<Unit>(HttpHeaders().apply {
+            TestContext.token?.let { setBearerAuth(it) }
+        })
+
+        response = restTemplate.exchange(
+            endpoint,
+            HttpMethod.DELETE,
+            entity,
+            String::class.java
+        )
+    }
+
     @When("I POST to {string} with file {string}")
     fun iPostWithFile(endpoint: String, fileName: String) {
         val file: File = when {
