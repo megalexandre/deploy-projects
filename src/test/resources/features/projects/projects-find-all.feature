@@ -28,7 +28,7 @@ Feature: Project
       "dcProtection": "Disjuntor CC 20A",
       "systemPower": 5.5,
       "status": "Em Análise",
-      "value": 15000.00,
+      "amount": 15000,
       "createdAt": "2026-02-10T10:00:00Z",
       "updatedAt": "2026-02-10T10:00:00Z"
     }
@@ -40,18 +40,15 @@ Feature: Project
     """
     [
       {
-        "id": "da30fcdc-b9ed-402b-a359-de324226bee7",
-        "clienteId": "da30fcdc-b9ed-402b-a359-de324226bee7",
-        "concessionaria": "CEMIG",
-        "protocoloConcessionaria": "PROT-2024-001",
-        "classe": "Residencial",
-        "integrator": "Solar Tech Solutions",
-        "modalidade": "Geração Distribuída",
-        "enquadramento": "Microgeração",
-        "protecaoCC": "Disjuntor CC 20A",
-        "potenciaSistema": 5.5,
-        "status": "Em Análise",
-        "value": 15000.00,
-      }
+        "classe":"Residencial",
+        "clienteId":"da30fcdc-b9ed-402b-a359-de324226bee7",
+        "concessionaria":"CEMIG",
+        "enquadramento":"Microgeração",
+        "id":"da30fcdc-b9ed-402b-a359-de324226bee7",
+        "integrator":"Solar Tech Solutions",
+        "modalidade":"Geração Distribuída",
+        "potenciaSistema":5.5,
+        "protecaoCC":"Disjuntor CC 20A",
+        "protocoloConcessionaria":"PROT-2024-001"}
     ]
     """
