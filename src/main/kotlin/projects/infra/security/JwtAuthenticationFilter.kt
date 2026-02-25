@@ -1,8 +1,11 @@
 package projects.infra.security
 
+import io.jsonwebtoken.ExpiredJwtException
+import io.jsonwebtoken.JwtException
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
+import org.springframework.http.HttpStatus
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.core.userdetails.UserDetailsService
@@ -35,23 +38,33 @@ class JwtAuthenticationFilter(
             return
         }
 
-        val jwt = authHeader.substring(7)
-        val userEmail = jwtService.extractUsername(jwt)
+        try {
+            val jwt = authHeader.substring(7)
+            val userEmail = jwtService.extractUsername(jwt)
 
-        if (SecurityContextHolder.getContext().authentication == null) {
-            val userDetails = userDetailsService.loadUserByUsername(userEmail)
+            if (SecurityContextHolder.getContext().authentication == null) {
+                val userDetails = userDetailsService.loadUserByUsername(userEmail)
 
-            if (jwtService.isTokenValid(jwt, userDetails)) {
-                val authToken = UsernamePasswordAuthenticationToken(
-                    userDetails,
-                    null,
-                    userDetails.authorities
-                )
-                authToken.details = WebAuthenticationDetailsSource().buildDetails(request)
-                SecurityContextHolder.getContext().authentication = authToken
+                if (jwtService.isTokenValid(jwt, userDetails)) {
+                    val authToken = UsernamePasswordAuthenticationToken(
+                        userDetails,
+                        null,
+                        userDetails.authorities
+                    )
+                    authToken.details = WebAuthenticationDetailsSource().buildDetails(request)
+                    SecurityContextHolder.getContext().authentication = authToken
+                }
             }
-        }
 
-        filterChain.doFilter(request, response)
+            filterChain.doFilter(request, response)
+        } catch (_: ExpiredJwtException) {
+            response.status = HttpStatus.UNAUTHORIZED.value()
+            response.contentType = "application/json"
+            response.writer.write("""{"error": "Token expired", "message": "JWT token has expired"}""")
+        } catch (e: JwtException) {
+            response.status = HttpStatus.UNAUTHORIZED.value()
+            response.contentType = "application/json"
+            response.writer.write("""{"error": "Invalid token", "message": "${e.message}"}""")
+        }
     }
 }
