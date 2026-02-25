@@ -2,9 +2,9 @@ package projects.resources.persistence
 
 import jakarta.persistence.*
 import projects.core.model.Project
+import java.math.BigDecimal
 import java.time.Instant
 import java.util.*
-import projects.commons.Id as identity
 
 @Entity
 @Table(name = "projects")
@@ -34,6 +34,12 @@ data class ProjectEntity(
 
     @Column(name = "framework", nullable = false)
     var framework: String,
+
+    @Column(name = "status")
+    var status: String,
+
+    @Column(name = "amount")
+    var amount: BigDecimal,
 
     @Column(name = "dc_protection")
     var dcProtection: String?,
@@ -66,6 +72,8 @@ data class ProjectEntity(
             dcProtection = dcProtection,
             systemPower = systemPower,
             createdAt = createdAt,
+            amount = amount,
+            status = status,
             updatedAt = updatedAt
         )
 
@@ -82,6 +90,8 @@ data class ProjectEntity(
                 framework = domain.framework,
                 dcProtection = domain.dcProtection,
                 systemPower = domain.systemPower,
+                amount = domain.amount,
+                status = domain.status,
                 createdAt = domain.createdAt ?: Instant.now(),
                 updatedAt = domain.updatedAt ?: Instant.now()
             )

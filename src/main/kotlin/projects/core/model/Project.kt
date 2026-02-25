@@ -1,5 +1,6 @@
 package projects.core.model
 
+import java.math.BigDecimal
 import java.time.Instant
 
 data class Project(
@@ -13,6 +14,9 @@ data class Project(
     val framework: String,
     val dcProtection: String?,
     val systemPower: Double?,
+
+    val amount : BigDecimal,
+    val status: String,
 
     val createdAt: Instant? = null,
     val updatedAt: Instant? = null

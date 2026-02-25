@@ -15,11 +15,11 @@ class ProjectRepositoryImpl(
     private val currentUserProvider: CurrentUserProvider,
 ): ProjectRepository {
 
-    override fun save(project: Project): Project  =
-         jpa.save(ProjectEntity.from(project)).toDomain()
+    override fun save(t: Project): Project  =
+         jpa.save(ProjectEntity.from(t)).toDomain()
 
-    override fun delete(projectId: String) {
-        val key = UUID.fromString(projectId)
+    override fun delete(id: String) {
+        val key = UUID.fromString(id)
 
         if (jpa.existsById(key)) {
             jpa.deleteById(key)
@@ -31,8 +31,8 @@ class ProjectRepositoryImpl(
         return jpa.findAll(Sort.by(Sort.Direction.ASC, "id")).map { it.toDomain() }
     }
 
-    override fun findById(projectId: String): Project? =
-        jpa.findById(UUID.fromString(projectId)).orElse(null)?.toDomain()
+    override fun findById(id: String): Project? =
+        jpa.findById(UUID.fromString(id)).orElse(null)?.toDomain()
 
 }
 

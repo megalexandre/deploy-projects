@@ -27,6 +27,8 @@ Feature: Project
       "framework": "Microgeração",
       "dcProtection": "Disjuntor CC 20A",
       "systemPower": 5.5,
+      "status": "Em Análise",
+      "value": 15000.00,
       "createdAt": "2026-02-10T10:00:00Z",
       "updatedAt": "2026-02-10T10:00:00Z"
     }
@@ -47,7 +49,9 @@ Feature: Project
         "modalidade": "Geração Distribuída",
         "enquadramento": "Microgeração",
         "protecaoCC": "Disjuntor CC 20A",
-        "potenciaSistema": 5.5
+        "potenciaSistema": 5.5,
+        "status": "Em Análise",
+        "value": 15000.00,
       }
     ]
     """

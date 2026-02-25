@@ -16,7 +16,9 @@ Feature: Project
         "modalidade": "Geração Distribuída",
         "enquadramento": "Microgeração",
         "protecaoCC": "Disjuntor CC 20A",
-        "potenciaSistema": 5.5
+        "potenciaSistema": 5.5,
+        "status": "Em Análise",
+        "valor": 15000.00
     }
     """
     Then the response status code should be 201
@@ -40,7 +42,9 @@ Feature: Project
         "classe": "Residencial",
         "integrator": "Solar Tech Solutions",
         "modalidade": "Geração Distribuída",
-        "enquadramento": "Microgeração"
+        "enquadramento": "Microgeração",
+        "status": "Em Análise",
+        "valor": 15000.00
     }
     """
     Then the response status code should be 201

@@ -18,7 +18,9 @@ Feature: Project Batch Create
                 "modalidade": "Geração Distribuída",
                 "enquadramento": "Microgeração",
                 "protecaoCC": "Disjuntor CC 20A",
-                "potenciaSistema": 5.5
+                "potenciaSistema": 5.5,
+                "status": "Em Análise",
+                "valor": 15000.00
             },
             {
                 "clienteId": "550e8400-e29b-41d4-a716-446655440002",
@@ -29,7 +31,9 @@ Feature: Project Batch Create
                 "modalidade": "Geração Distribuída",
                 "enquadramento": "Minigeração",
                 "protecaoCC": "Disjuntor CC 32A",
-                "potenciaSistema": 15.8
+                "potenciaSistema": 15.8,
+                "status": "Em Análise",
+                "valor": 15000.00
             },
             {
                 "clienteId": "550e8400-e29b-41d4-a716-446655440003",
@@ -40,7 +44,9 @@ Feature: Project Batch Create
                 "modalidade": "Geração Distribuída",
                 "enquadramento": "Minigeração",
                 "protecaoCC": "Disjuntor CC 50A",
-                "potenciaSistema": 75.0
+                "potenciaSistema": 75.0,
+                "status": "Em Análise",
+                "valor": 15000.00
             }
         ]
     }
@@ -80,7 +86,9 @@ Feature: Project Batch Create
                 "classe": "Residencial",
                 "integrator": "Solar Tech Solutions",
                 "modalidade": "Geração Distribuída",
-                "enquadramento": "Microgeração"
+                "enquadramento": "Microgeração",
+                "status": "Em Análise",
+                "valor": 15000.00
             },
             {
                 "clienteId": "550e8400-e29b-41d4-a716-446655440005",
@@ -89,7 +97,9 @@ Feature: Project Batch Create
                 "classe": "Comercial",
                 "integrator": "Solar Tech Solutions",
                 "modalidade": "Geração Distribuída",
-                "enquadramento": "Minigeração"
+                "enquadramento": "Minigeração",
+                "status": "Em Análise",
+                "valor": 15000.00
             }
         ]
     }
@@ -136,7 +146,9 @@ Feature: Project Batch Create
                 "classe": "Residencial",
                 "integrator": "Solar Tech Solutions",
                 "modalidade": "Geração Distribuída",
-                "enquadramento": "Microgeração"
+                "enquadramento": "Microgeração",
+                "status": "Em Análise",
+                "valor": 15000.00
             }
         ]
     }

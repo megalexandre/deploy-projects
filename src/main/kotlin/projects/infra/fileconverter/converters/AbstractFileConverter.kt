@@ -37,7 +37,9 @@ abstract class AbstractFileConverter : FileConverter {
             modality = getField(record, "modalidade"),
             framework = getField(record, "enquadramento"),
             dcProtection = getField(record, "protecaocc", "protecaoCC"),
-            systemPower = getField(record, "potenciasistema", "potenciaSistema")?.toDoubleOrNull()
+            systemPower = getField(record, "potenciasistema", "potenciaSistema")?.toDoubleOrNull(),
+            status = getField(record, "status"),
+            amount = getField(record, "valor", "amount")
         )
     }
 

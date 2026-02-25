@@ -7,10 +7,10 @@ Feature: Project Batch Create with XLSX file
 
     When I POST to "/projects/batch" with file "projects-batch.xlsx" with content:
     """
-    clienteId,concessionaria,protocoloConcessionaria,classe,integrator,modalidade,enquadramento,protecaoCC,potenciaSistema
-    550e8400-e29b-41d4-a716-446655440001,CEMIG,PROT-2024-001,Residencial,Solar Tech Solutions,Geração Distribuída,Microgeração,Disjuntor CC 20A,5.5
-    550e8400-e29b-41d4-a716-446655440002,CPFL,PROT-2024-002,Comercial,Solar Tech Solutions,Geração Distribuída,Minigeração,Disjuntor CC 32A,15.8
-    550e8400-e29b-41d4-a716-446655440003,Enel,PROT-2024-003,Industrial,Green Energy Corp,Geração Distribuída,Minigeração,Disjuntor CC 50A,75.0
+    clienteId,concessionaria,protocoloConcessionaria,classe,integrator,modalidade,enquadramento,protecaoCC,potenciaSistema,status,valor
+    550e8400-e29b-41d4-a716-446655440001,CEMIG,PROT-2024-001,Residencial,Solar Tech Solutions,Geração Distribuída,Microgeração,Disjuntor CC 20A,5.5,Em Análise,15000.00
+    550e8400-e29b-41d4-a716-446655440002,CPFL,PROT-2024-002,Comercial,Solar Tech Solutions,Geração Distribuída,Minigeração,Disjuntor CC 32A,15.8,Em Análise,15000
+    550e8400-e29b-41d4-a716-446655440003,Enel,PROT-2024-003,Industrial,Green Energy Corp,Geração Distribuída,Minigeração,Disjuntor CC 50A,75.0,Em Análise,15000
     """
     Then the response status code should be 201
     Then the response body should contain:
@@ -38,10 +38,10 @@ Feature: Project Batch Create with XLSX file
 
     When I POST to "/projects/batch" with file "projects-batch.csv" with content:
     """
-    clienteId,concessionaria,protocoloConcessionaria,classe,integrator,modalidade,enquadramento,protecaoCC,potenciaSistema
-    550e8400-e29b-41d4-a716-446655440001,CEMIG,PROT-2024-001,Residencial,Solar Tech Solutions,Geração Distribuída,Microgeração,Disjuntor CC 20A,5.5
-    550e8400-e29b-41d4-a716-446655440002,CPFL,PROT-2024-002,Comercial,Solar Tech Solutions,Geração Distribuída,Minigeração,Disjuntor CC 32A,15.8
-    550e8400-e29b-41d4-a716-446655440003,Enel,PROT-2024-003,Industrial,Green Energy Corp,Geração Distribuída,Minigeração,Disjuntor CC 50A,75.0
+    clienteId,concessionaria,protocoloConcessionaria,classe,integrator,modalidade,enquadramento,protecaoCC,potenciaSistema,status,valor
+    550e8400-e29b-41d4-a716-446655440001,CEMIG,PROT-2024-001,Residencial,Solar Tech Solutions,Geração Distribuída,Microgeração,Disjuntor CC 20A,5.5,Em Análise,15000.00
+    550e8400-e29b-41d4-a716-446655440002,CPFL,PROT-2024-002,Comercial,Solar Tech Solutions,Geração Distribuída,Minigeração,Disjuntor CC 32A,15.8,Em Análise,20000.00
+    550e8400-e29b-41d4-a716-446655440003,Enel,PROT-2024-003,Industrial,Green Energy Corp,Geração Distribuída,Minigeração,Disjuntor CC 50A,75.0,Em Análise,50000.00
     """
     Then the response status code should be 201
     Then the response body should contain:
@@ -69,10 +69,10 @@ Feature: Project Batch Create with XLSX file
 
     When I POST to "/projects/batch" with file "projects-batch.xls" with content:
     """
-    clienteId,concessionaria,protocoloConcessionaria,classe,integrator,modalidade,enquadramento,protecaoCC,potenciaSistema
-    550e8400-e29b-41d4-a716-446655440001,CEMIG,PROT-2024-001,Residencial,Solar Tech Solutions,Geração Distribuída,Microgeração,Disjuntor CC 20A,5.5
-    550e8400-e29b-41d4-a716-446655440002,CPFL,PROT-2024-002,Comercial,Solar Tech Solutions,Geração Distribuída,Minigeração,Disjuntor CC 32A,15.8
-    550e8400-e29b-41d4-a716-446655440003,Enel,PROT-2024-003,Industrial,Green Energy Corp,Geração Distribuída,Minigeração,Disjuntor CC 50A,75.0
+    clienteId,concessionaria,protocoloConcessionaria,classe,integrator,modalidade,enquadramento,protecaoCC,potenciaSistema,status,valor
+    550e8400-e29b-41d4-a716-446655440001,CEMIG,PROT-2024-001,Residencial,Solar Tech Solutions,Geração Distribuída,Microgeração,Disjuntor CC 20A,5.5,Em Análise,15000.00
+    550e8400-e29b-41d4-a716-446655440002,CPFL,PROT-2024-002,Comercial,Solar Tech Solutions,Geração Distribuída,Minigeração,Disjuntor CC 32A,15.8,Em Análise,20000.00
+    550e8400-e29b-41d4-a716-446655440003,Enel,PROT-2024-003,Industrial,Green Energy Corp,Geração Distribuída,Minigeração,Disjuntor CC 50A,75.0,Em Análise,50000.00
     """
     Then the response status code should be 201
     Then the response body should contain:
@@ -100,9 +100,9 @@ Feature: Project Batch Create with XLSX file
 
     When I POST to "/projects/batch" with file "projects-batch.xlsx" with content:
     """
-    clienteId,concessionaria,protocoloConcessionaria,classe,integrator,modalidade,enquadramento
-    550e8400-e29b-41d4-a716-446655440004,CEMIG,PROT-2024-004,Residencial,Solar Tech Solutions,Geração Distribuída,Microgeração
-    550e8400-e29b-41d4-a716-446655440005,CPFL,PROT-2024-005,Comercial,Solar Tech Solutions,Geração Distribuída,Minigeração
+    clienteId,concessionaria,protocoloConcessionaria,classe,integrator,modalidade,enquadramento,status,valor
+    550e8400-e29b-41d4-a716-446655440004,CEMIG,PROT-2024-004,Residencial,Solar Tech Solutions,Geração Distribuída,Microgeração,Novo,10000.00
+    550e8400-e29b-41d4-a716-446655440005,CPFL,PROT-2024-005,Comercial,Solar Tech Solutions,Geração Distribuída,Minigeração,Novo,20000.00
     """
     Then the response status code should be 201
     Then the response body should contain:
@@ -122,5 +122,3 @@ Feature: Project Batch Create with XLSX file
     }
     """
     Then the table "projects" should have 2 records
-
-
