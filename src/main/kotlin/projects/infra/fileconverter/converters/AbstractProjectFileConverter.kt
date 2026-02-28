@@ -1,7 +1,7 @@
 package projects.infra.fileconverter.converters
 
 import org.springframework.web.multipart.MultipartFile
-import projects.infra.fileconverter.FileConverter
+import projects.infra.fileconverter.converters.FileConverter
 import projects.web.projects.port.`in`.ProjectBatchCreateRequest
 import projects.web.projects.port.`in`.ProjectCreateRequest
 
@@ -9,7 +9,7 @@ import projects.web.projects.port.`in`.ProjectCreateRequest
  * Classe abstrata base para converters de arquivos
  * Encapsula a lógica comum de mapeamento de registros para ProjectCreateRequest
  */
-abstract class AbstractFileConverter : FileConverter {
+abstract class AbstractProjectFileConverter : FileConverter {
 
     override fun execute(file: MultipartFile): ProjectBatchCreateRequest {
         val records = parseFile(file)

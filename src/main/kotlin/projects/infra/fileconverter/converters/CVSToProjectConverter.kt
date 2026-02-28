@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component
 import org.springframework.web.multipart.MultipartFile
 
 @Component
-class CVSConverter : AbstractFileConverter() {
+class CVSToProjectConverter : AbstractProjectFileConverter() {
 
     override fun supports(): List<String> {
         return listOf("csv")

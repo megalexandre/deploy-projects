@@ -2,6 +2,7 @@ package projects.infra.fileconverter
 
 import org.springframework.stereotype.Component
 import org.springframework.web.multipart.MultipartHttpServletRequest
+import projects.infra.fileconverter.converters.FileConverter
 import projects.web.projects.port.`in`.ProjectBatchCreateRequest
 
 @Component

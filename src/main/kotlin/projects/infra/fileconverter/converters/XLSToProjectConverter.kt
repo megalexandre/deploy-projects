@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component
 import org.springframework.web.multipart.MultipartFile
 
 @Component
-class XLSConverter : AbstractFileConverter() {
+class XLSToProjectConverter : AbstractProjectFileConverter() {
 
     override fun supports(): List<String> {
         return listOf("xls", "xlsx")
@@ -54,14 +54,6 @@ class XLSConverter : AbstractFileConverter() {
                 }
             }
             CellType.BOOLEAN -> cell.booleanCellValue.toString()
-            CellType.FORMULA -> {
-                // Tenta avaliar a fórmula
-                try {
-                    cell.stringCellValue
-                } catch (_: Exception) {
-                    cell.numericCellValue.toString()
-                }
-            }
             else -> null
         }
     }

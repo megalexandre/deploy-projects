@@ -1,4 +1,4 @@
-package projects.infra.fileconverter
+package projects.infra.fileconverter.converters
 
 import org.springframework.web.multipart.MultipartFile
 import projects.web.projects.port.`in`.ProjectBatchCreateRequest

@@ -2,6 +2,7 @@ package projects.web.projects.port.out
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import projects.core.model.Project
+import java.math.BigDecimal
 
 class ProjectPaginateResponse (
 
@@ -33,6 +34,12 @@ class ProjectPaginateResponse (
     @field:JsonProperty("potenciaSistema")
     val systemPower: Double?,
 
+    @field:JsonProperty("valor")
+    val amount : BigDecimal,
+
+    @field:JsonProperty("status")
+    val status: String,
+
     )
 
 fun Project.toPaginateResponse() = ProjectPaginateResponse(
@@ -46,4 +53,6 @@ fun Project.toPaginateResponse() = ProjectPaginateResponse(
     framework = this.framework,
     dcProtection = this.dcProtection,
     systemPower = this.systemPower,
+    amount = this.amount,
+    status = this.status
 )
