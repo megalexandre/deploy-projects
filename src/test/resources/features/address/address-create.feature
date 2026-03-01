@@ -20,8 +20,7 @@ Feature: Customer
       "id": "${json-unit.regex}^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
       "name": "João da Silva",
       "link": "https://www.linkedin.com/in/joaodasilva",
-      "place": "string",
-      "fullAddress": "João da Silva string https://www.linkedin.com/in/joaodasilva"
+      "place": "string"
     }
     """
     Then the table "address" should have 1 records
