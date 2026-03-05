@@ -5,11 +5,11 @@ import projects.core.model.Address
 import projects.core.respository.AddressRepository
 
 @Service
-class AddressCreateUseCase(
+class AddressFindAllUseCase(
     private val repository: AddressRepository,
 ) {
 
-    fun execute(address: Address): Address =
-        repository.save(address)
+    fun execute(): List<Address> =
+        repository.findAll()
 
 }

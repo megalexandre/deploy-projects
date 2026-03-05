@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Size
 import projects.commons.Id
 import projects.core.model.Address
 
-class AddressCreateRequest(
+open class AddressCreateRequest(
 
     @field:NotNull(message = "{customer.email.notBlank}")
     @field:NotBlank(message = "{customer.email.notBlank}")
@@ -49,7 +49,7 @@ class AddressCreateRequest(
     @field:Size(min = 2, max = 2, message = "{address.state.size}")
     val state: String?
 ) {
-    fun toDomain() = Address(
+    open fun toDomain() = Address(
         id = Id.random(),
         place = place!!,
         link = link,
