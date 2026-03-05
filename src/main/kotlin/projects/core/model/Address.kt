@@ -2,7 +2,6 @@ package projects.core.model
 
 data class Address (
     val id: String,
-    val name: String,
     val place: String,
     val cep: String,
     val number: String,

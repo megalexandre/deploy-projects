@@ -15,9 +15,6 @@ data class AddressEntity(
     @Column(name = "id", nullable = false, updatable = false)
     var id: UUID,
 
-    @Column(name = "name", nullable = false)
-    var name: String,
-
     @Column(name = "link", nullable = false)
     var link: String?,
 
@@ -50,7 +47,6 @@ data class AddressEntity(
     fun toDomain(): Address =
         Address(
             id = id.toString(),
-            name = name,
             link = link,
             place = place,
             cep = cep,
@@ -66,7 +62,6 @@ data class AddressEntity(
         fun from(domain: Address): AddressEntity =
             AddressEntity(
                 id = UUID.fromString( domain.id),
-                name = domain.name,
                 link = domain.link,
                 place = domain.place,
                 cep = domain.cep,

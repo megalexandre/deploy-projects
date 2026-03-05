@@ -2,8 +2,10 @@ spring:
   profiles:
     active: test
   datasource:
-    url: jdbc:tc:postgresql:18:///test
-    driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/appdb}
+    username: ${SPRING_DATASOURCE_USERNAME:app}
+    password: ${SPRING_DATASOURCE_PASSWORD:secret}
+    driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
       ddl-auto: validate

@@ -7,7 +7,5 @@ ALTER TABLE address
     ADD COLUMN city VARCHAR NOT NULL,
     ADD COLUMN state VARCHAR NOT NULL;
 
-ALTER TABLE address DROP COLUMN name;
-ALTER TABLE address DROP COLUMN place;
 
 

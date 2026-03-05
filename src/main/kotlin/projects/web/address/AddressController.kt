@@ -19,4 +19,5 @@ class AddressController(
     @ResponseStatus(HttpStatus.CREATED)
     fun create(@Valid @RequestBody addressCreateRequest: AddressCreateRequest): AddressCreateResponse =
         create.execute(addressCreateRequest.toDomain()).toResponse()
+
 }

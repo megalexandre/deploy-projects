@@ -1,14 +1,15 @@
-Feature: Customer
+Feature: Address
 
   Background:
     Given I am authenticated
 
-  Scenario: Create a customer with all fields
+  Scenario: Create a address with all fields
 
     When I POST the payload to "/address" with body:
     """
     {
        "cep": "41234567",
+       "place": "any name",
        "number": "12",
        "address": "any name",
        "complement": "description",
@@ -25,6 +26,7 @@ Feature: Customer
       "id": "${json-unit.regex}^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
       "cep": "41234567",
       "number": "12",
+      "place": "any name",
       "address": "any name",
       "complement": "description",
       "neighborhood": "jacobina III",
