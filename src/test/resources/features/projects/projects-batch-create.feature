@@ -92,6 +92,7 @@ Feature: Project Batch Create
             },
             {
                 "clienteId": "550e8400-e29b-41d4-a716-446655440005",
+                "enderecoId": null,
                 "concessionaria": "CPFL",
                 "protocoloConcessionaria": "PROT-2024-005",
                 "classe": "Comercial",

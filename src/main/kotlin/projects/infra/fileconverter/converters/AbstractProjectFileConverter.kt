@@ -30,6 +30,7 @@ abstract class AbstractProjectFileConverter : FileConverter {
     protected fun mapRecordToProject(record: Map<String, String?>): ProjectCreateRequest {
         return ProjectCreateRequest(
             clientId = getField(record, "clienteid", "clientId"),
+            addressId = getField(record, "addressid", "addressId"),
             utilityCompany = getField(record, "concessionaria"),
             utilityProtocol = getField(record, "protocoloconcessionaria", "protocoloConcessionaria"),
             customerClass = getField(record, "classe"),

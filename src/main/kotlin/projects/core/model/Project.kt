@@ -14,7 +14,8 @@ data class Project(
     val framework: String,
     val dcProtection: String?,
     val systemPower: Double?,
-
+    val addressId: String?,
+    val address: Address? = null,
     val amount : BigDecimal,
     val status: String,
 

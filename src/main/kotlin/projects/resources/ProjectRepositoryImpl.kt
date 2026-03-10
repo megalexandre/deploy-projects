@@ -2,6 +2,7 @@ package projects.resources
 
 import org.springframework.data.domain.Sort
 import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.data.jpa.repository.Query
 import org.springframework.stereotype.Repository
 import projects.core.model.Project
 import projects.core.respository.ProjectRepository
@@ -32,10 +33,12 @@ class ProjectRepositoryImpl(
     }
 
     override fun findById(id: String): Project? =
-        jpa.findById(UUID.fromString(id)).orElse(null)?.toDomain()
+        jpa.findByIdWithAddress(UUID.fromString(id)).orElse(null)?.toDomain()
 
 }
 
 @Repository
 interface SpringDataProjectRepository : JpaRepository<ProjectEntity, UUID>{
+    @Query("SELECT p FROM ProjectEntity p LEFT JOIN FETCH p.address WHERE p.id = :id")
+    fun findByIdWithAddress(id: UUID): Optional<ProjectEntity>
 }

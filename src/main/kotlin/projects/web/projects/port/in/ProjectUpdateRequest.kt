@@ -15,6 +15,7 @@ class ProjectUpdateRequest(
     @field:Pattern(regexp = "^[a-f0-9-]{36}$", flags = [Pattern.Flag.CASE_INSENSITIVE], message = "{uuid.invalid}")
     val id: String?,
 
+    addressId: String?,
     clientId: String?,
     utilityCompany: String?,
     utilityProtocol: String?,
@@ -38,7 +39,8 @@ class ProjectUpdateRequest(
     amount = amount,
     framework = framework,
     dcProtection = dcProtection,
-    systemPower = systemPower
+    systemPower = systemPower,
+    addressId = addressId,
 )  {
 
     override fun toDomain(): Project {

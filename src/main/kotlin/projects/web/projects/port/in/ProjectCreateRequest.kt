@@ -16,6 +16,10 @@ open class ProjectCreateRequest (
     @field:Pattern(regexp = "^[a-f0-9-]{36}$", flags = [Pattern.Flag.CASE_INSENSITIVE], message = "{uuid.invalid}")
     open val clientId: String?,
 
+    @field:JsonProperty("enderecoId")
+    @field:Pattern(regexp = "^[a-f0-9-]{36}$", flags = [Pattern.Flag.CASE_INSENSITIVE], message = "{uuid.invalid}")
+    open val addressId: String?,
+
     @field:JsonProperty("concessionaria")
     @field:NotNull(message = "{project.utilityCompany.notBlank}")
     @field:NotBlank(message = "{project.utilityCompany.notBlank}")
@@ -76,6 +80,7 @@ open class ProjectCreateRequest (
     open fun toDomain() = Project(
         id = Id.random(),
         clientId = clientId!!,
+        addressId = addressId,
         utilityCompany = utilityCompany!!,
         utilityProtocol = utilityProtocol!!,
         customerClass = customerClass!!,

@@ -1,6 +1,7 @@
 package projects.web.projects.port.out
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import projects.core.usecase.project.BatchImportResult
 
 data class ProjectBatchCreateResponse(
     @JsonProperty("totalProcessado")
@@ -16,7 +17,7 @@ data class ProjectBatchCreateResponse(
     val createdProjects: List<ProjectCreateResponse>
 )
 
-fun projects.core.usecase.project.BatchImportResult.toBatchCreateResponse() = ProjectBatchCreateResponse(
+fun BatchImportResult.toBatchCreateResponse() = ProjectBatchCreateResponse(
     totalProcessed = this.totalProcessed,
     successCount = this.successCount,
     errorCount = this.errorCount,

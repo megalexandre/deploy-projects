@@ -2,6 +2,8 @@ package projects.web.projects.port.out
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import projects.core.model.Project
+import projects.web.address.port.out.AddressCreateResponse
+import projects.web.address.port.out.toResponse
 import java.time.Instant
 
 class ProjectFindByIdResponse (
@@ -16,6 +18,9 @@ class ProjectFindByIdResponse (
 
     @field:JsonProperty("protocoloConcessionaria")
     val utilityProtocol: String,
+
+    @field:JsonProperty("endereco")
+    val address: AddressCreateResponse? = null,
 
     @field:JsonProperty("classe")
     val customerClass: String,
@@ -41,6 +46,7 @@ class ProjectFindByIdResponse (
 fun Project.toFindByIdResponse() = ProjectFindByIdResponse(
     id = this.id,
     clientId = this.clientId,
+    address = this.address?.toResponse(),
     utilityCompany = this.utilityCompany,
     utilityProtocol = this.utilityProtocol,
     customerClass = this.customerClass,

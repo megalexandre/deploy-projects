@@ -17,6 +17,13 @@ data class ProjectEntity(
     @Column(name = "client_id", nullable = false)
     var clientId: UUID,
 
+    @Column(name = "address_id")
+    var addressId: UUID?,
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "address_id", insertable = false, updatable = false)
+    var address: AddressEntity?,
+
     @Column(name = "utility_company", nullable = false)
     var utilityCompany: String,
 
@@ -63,6 +70,8 @@ data class ProjectEntity(
         Project(
             id = id.toString(),
             clientId = clientId.toString(),
+            addressId = addressId?.toString(),
+            address = address?.toDomain(),
             utilityCompany = utilityCompany,
             utilityProtocol = utilityProtocol,
             customerClass = customerClass,
@@ -82,6 +91,8 @@ data class ProjectEntity(
             ProjectEntity(
                 id = UUID.fromString(domain.id) ,
                 clientId = UUID.fromString(domain.clientId),
+                addressId = domain.addressId?.let {  UUID.fromString(it)} ,
+                address = domain.address?.let { AddressEntity.from(it) },
                 utilityCompany = domain.utilityCompany,
                 utilityProtocol = domain.utilityProtocol,
                 customerClass = domain.customerClass,

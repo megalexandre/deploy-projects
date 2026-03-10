@@ -2,6 +2,7 @@ package projects.web.projects.port.out
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import projects.core.model.Project
+import projects.web.address.port.out.AddressCreateResponse
 import java.math.BigDecimal
 
 class ProjectPaginateResponse (
@@ -16,6 +17,9 @@ class ProjectPaginateResponse (
 
     @field:JsonProperty("protocoloConcessionaria")
     val utilityProtocol: String,
+
+    @field:JsonProperty("endereco")
+    val address: AddressCreateResponse? = null,
 
     @field:JsonProperty("classe")
     val customerClass: String,
