@@ -1,11 +1,7 @@
 package projects.web.customer.port.`in`
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import jakarta.validation.constraints.Email
-import jakarta.validation.constraints.NotBlank
-import jakarta.validation.constraints.NotNull
-import jakarta.validation.constraints.Pattern
-import jakarta.validation.constraints.Size
+import jakarta.validation.constraints.*
 import projects.commons.Id
 import projects.core.model.Customer
 
@@ -16,6 +12,9 @@ class CustomerCreateRequest(
     @field:NotBlank(message = "{customer.name.notBlank}")
     @field:Size(min = 2, max = 250, message = "{customer.name.size}")
     val name: String?,
+
+    @field:Pattern(regexp = "^[a-f0-9-]{36}$", flags = [Pattern.Flag.CASE_INSENSITIVE], message = "{uuid.invalid}")
+    val addressId: String?,
 
     @field:JsonProperty("cpfCnpj")
     @field:NotNull(message = "{customer.taxId.notBlank}")
@@ -40,6 +39,7 @@ class CustomerCreateRequest(
     fun toDomain() = Customer(
         id = Id.random(),
         name = name!!,
+        addressId = addressId,
         taxId = taxId!!,
         phone = phone!!,
         email = email!!

@@ -5,10 +5,27 @@ Feature: Customer
 
   Scenario: Create a customer with all fields
 
+    Given the following address exists in the database:
+    """
+    {
+       "id": "019ca71b-3183-7a8b-8f71-e44a327a7846",
+       "cep": "41234567",
+       "place": "any name",
+       "number": "12",
+       "address": "any name",
+       "complement": "description",
+       "neighborhood": "jacobina III",
+       "city": "jacobina",
+       "state": "ba",
+       "link": "https://maps.google.com/?q=-11.123456,-40.123456"
+    }
+    """
+
     When I POST the payload to "/customers" with body:
     """
     {
         "nome": "João da Silva",
+        "addressId": "019ca71b-3183-7a8b-8f71-e44a327a7846",
         "cpfCnpj": "12345678901",
         "telefone": "11987654321",
         "email": "joao.silva@example.com"
@@ -19,6 +36,7 @@ Feature: Customer
     """
     {
       "id": "${json-unit.regex}^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+      "addressId": "019ca71b-3183-7a8b-8f71-e44a327a7846",
       "name": "João da Silva",
       "taxId": "12345678901",
       "phone": "11987654321",

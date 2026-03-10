@@ -13,6 +13,13 @@ data class CustomerEntity(
     @Column(name = "id", nullable = false, updatable = false)
     var id: UUID,
 
+    @Column(name = "address_id")
+    var addressId: UUID?,
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "address_id", insertable = false, updatable = false)
+    var address: AddressEntity?,
+
     @Column(name = "name", nullable = false)
     var name: String,
 
@@ -40,6 +47,8 @@ data class CustomerEntity(
     fun toDomain(): Customer =
         Customer(
             id = id.toString(),
+            address = address?.toDomain(),
+            addressId = addressId?.toString(),
             name = name,
             email = email,
             phone = phone,
@@ -53,6 +62,8 @@ data class CustomerEntity(
             CustomerEntity(
                 id = UUID.fromString( domain.id),
                 name = domain.name,
+                addressId = domain.addressId?.let {  UUID.fromString(it)} ,
+                address = domain.address?.let { AddressEntity.from(it)},
                 email = domain.email,
                 taxId = domain.taxId,
                 phone = domain.phone,

@@ -2,14 +2,12 @@ package projects.resources
 
 import org.springframework.data.domain.Sort
 import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.data.jpa.repository.Query
 import org.springframework.stereotype.Repository
 import projects.core.model.Customer
-import projects.core.model.User
 import projects.core.respository.CustomerRepository
-import projects.core.respository.UserRepository
 import projects.resources.persistence.CustomerEntity
-import projects.resources.persistence.UserEntity
-import java.util.UUID
+import java.util.*
 
 @Repository
 class CustomerRepositoryImpl(
@@ -31,9 +29,12 @@ class CustomerRepositoryImpl(
         jpa.findAll(Sort.by(Sort.Direction.ASC, "id")).map { it.toDomain() }
 
     override fun findById(id: String): Customer? =
-        jpa.findById(UUID.fromString(id) ).orElse(null)?.toDomain()
+        jpa.findByIdWithAddress(UUID.fromString(id)).orElse(null)?.toDomain()
 
 }
 
 @Repository
-interface SpringDataCustomerRepository : JpaRepository<CustomerEntity, UUID>
+interface SpringDataCustomerRepository : JpaRepository<CustomerEntity, UUID> {
+    @Query("SELECT c FROM CustomerEntity c LEFT JOIN FETCH c.address WHERE c.id = :id")
+    fun findByIdWithAddress(id: UUID): Optional<CustomerEntity>
+}
