@@ -62,6 +62,7 @@ Feature: Customer
     {
       "id": "${json-unit.regex}^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
       "name": "Empresa Solar LTDA",
+      "addressId": null,
       "taxId": "12345678000190",
       "phone": "1133334444",
       "email": "contato@empresasolar.com.br"

@@ -32,11 +32,12 @@ Feature: Customer Update
     Then the response body should contain:
     """
     {
-      "id": "550e8400-e29b-41d4-a716-446655440001",
-      "name": "João da Silva Junior",
-      "taxId": "12345678901",
-      "phone": "11999999999",
-      "email": "joao.junior@example.com"
+      "id": "${json-unit.regex}^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+      "addressId":null,
+      "email":"joao.junior@example.com",
+      "name":"João da Silva Junior",
+      "phone":"11999999999",
+      "taxId":"12345678901"
     }
     """
 
@@ -69,11 +70,12 @@ Feature: Customer Update
     Then the response body should contain:
     """
     {
-      "id": "550e8400-e29b-41d4-a716-446655440002",
-      "name": "Empresa Solar LTDA ME",
-      "taxId": "12345678000190",
-      "phone": "1144445555",
-      "email": "comercial@empresasolar.com.br"
+      "id": "${json-unit.regex}^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+      "addressId":null,
+      "email":"comercial@empresasolar.com.br",
+      "name":"Empresa Solar LTDA ME",
+      "phone":"1144445555",
+      "taxId":"12345678000190"
     }
     """
 
