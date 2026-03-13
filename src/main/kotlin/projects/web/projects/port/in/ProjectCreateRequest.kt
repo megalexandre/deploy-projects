@@ -55,9 +55,15 @@ open class ProjectCreateRequest (
     open val modality: String?,
 
     @field:JsonProperty("status")
+    @field:NotNull(message = "{project.status.notBlank}")
+    @field:NotBlank(message = "{project.status.notBlank}")
+    @field:Size(min = 2, message = "{project.status.size}")
+    @field:Size(max = 250, message = "{project.status.size}")
     open val status: String?,
 
     @field:JsonProperty("valor")
+    @field:NotNull(message = "{project.amount.notBlank}")
+    @field:NotBlank(message = "{project.amount.notBlank}")
     @field:DecimalMin(value = "0.0", inclusive = true, message = "{project.amount.min}")
     open val amount: String?,
 

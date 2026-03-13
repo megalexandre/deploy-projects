@@ -2,6 +2,7 @@ package projects.infra
 
 import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.http.HttpStatus
+import org.springframework.http.converter.HttpMessageNotReadableException
 import org.springframework.security.authentication.BadCredentialsException
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ExceptionHandler
@@ -28,6 +29,31 @@ class GlobalExceptionHandler {
             status = HttpStatus.BAD_REQUEST.value(),
             message = "Validation Failed",
             errors = errors
+        )
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(HttpMessageNotReadableException::class)
+    fun handleHttpMessageNotReadable(ex: HttpMessageNotReadableException): ErrorResponse {
+        val errorMessage = when {
+            ex.message?.contains("Unexpected character") == true -> {
+                "JSON inválido: verifique se não há vírgulas extras ou caracteres incorretos"
+            }
+            ex.message?.contains("was expecting") == true -> {
+                "JSON malformado: verifique a estrutura do JSON enviado"
+            }
+            ex.message?.contains("Unexpected end-of-input") == true -> {
+                "JSON incompleto: verifique se todos os campos estão fechados corretamente"
+            }
+            else -> {
+                "Erro ao processar o JSON: verifique o formato dos dados enviados"
+            }
+        }
+
+        return ErrorResponse(
+            status = HttpStatus.BAD_REQUEST.value(),
+            message = errorMessage,
+            errors = mapOf("json" to "Verifique se o JSON está bem formatado (sem vírgulas extras no final)")
         )
     }
 

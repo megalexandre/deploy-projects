@@ -8,14 +8,14 @@ import projects.core.model.Address
 
 open class AddressCreateRequest(
 
-    @field:NotNull(message = "{customer.email.notBlank}")
-    @field:NotBlank(message = "{customer.email.notBlank}")
-    @field:Size(min = 5, message = "{customer.email.size}")
+    @field:NotNull(message = "{address.place.notBlank}")
+    @field:NotBlank(message = "{address.place.notBlank}")
+    @field:Size(min = 5, message = "{address.place.size}")
     val place: String?,
 
-    @field:NotNull(message = "{customer.email.notBlank}")
-    @field:NotBlank(message = "{customer.email.notBlank}")
-    @field:Size(min = 5, message = "{customer.email.size}")
+    @field:NotNull(message = "{address.link.notBlank}")
+    @field:NotBlank(message = "{address.link.notBlank}")
+    @field:Size(min = 5, message = "{address.link.size}")
     val link: String?,
 
     @field:NotNull(message = "{address.cep.notBlank}")
@@ -56,9 +56,9 @@ open class AddressCreateRequest(
         cep = cep!!,
         number = number!!,
         address = address!!,
-        complement = complement,
         neighborhood = neighborhood!!,
         city = city!!,
-        state = state!!
+        state = state!!,
+        complement = complement
     )
 }
