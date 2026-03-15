@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import jakarta.validation.constraints.*
 import projects.commons.Id
 import projects.core.model.Project
-import java.math.BigDecimal
+import projects.core.model.Coordinates
 
 open class ProjectCreateRequest (
 
@@ -81,7 +81,31 @@ open class ProjectCreateRequest (
 
     @field:JsonProperty("potenciaSistema")
     @field:DecimalMin(value = "0.0", inclusive = true, message = "{project.systemPower.min}")
-    open val systemPower: Double?
+    open val systemPower: Double?,
+
+    @field:JsonProperty("coordenadas")
+    open val coordinates: CoordinatesCreateRequest?,
+
+    @field:JsonProperty("unidade_controladora")
+    @field:Size(min = 2)
+    @field:Size(max = 250)
+    open val unitControl: String,
+
+    @field:JsonProperty("descrição")
+    @field:Size(min = 2)
+    @field:Size(max = 1024)
+    open val description: String?,
+
+    @field:JsonProperty("servicos")
+    open val servicesNames: List<String>?,
+
+    @field:JsonProperty("tipo_projeto")
+    @field:Size(min = 2)
+    @field:Size(max = 250)
+    open val projectType: String,
+
+    @field:JsonProperty("projeto_fast_track")
+    open val fastTrack: Boolean,
 ) {
     open fun toDomain() = Project(
         id = Id.random(),
@@ -95,7 +119,31 @@ open class ProjectCreateRequest (
         framework = framework!!,
         systemPower = systemPower,
         dcProtection = dcProtection,
+        coordinates = coordinates?.toDomain(),
+        unitControl = unitControl,
+        description = description,
+        servicesNames = servicesNames,
+        projectType = projectType,
+        fastTrack = fastTrack,
         status = status!!,
         amount = amount!!.toBigDecimal(),
+    )
+}
+
+
+class CoordinatesCreateRequest(
+    @field:JsonProperty("latitude")
+    @field:Size(min = 2)
+    @field:Size(max = 250)
+    val latitude: String?,
+
+    @field:JsonProperty("longitude")
+    @field:Size(min = 2)
+    @field:Size(max = 250)
+    val longitude: String?,
+){
+    fun toDomain() = Coordinates(
+        lat = latitude!!,
+        long = longitude!!
     )
 }

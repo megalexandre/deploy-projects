@@ -39,6 +39,21 @@ class ProjectFindByIdResponse (
     @field:JsonProperty("potenciaSistema")
     val systemPower: Double?,
 
+    @field:JsonProperty("unidade_controladora")
+    val unitControl: String,
+
+    @field:JsonProperty("descrição")
+    val description: String?,
+
+    @field:JsonProperty("servicos")
+    val servicesNames: List<String>?,
+
+    @field:JsonProperty("tipo_projeto")
+    val projectType: String,
+
+    @field:JsonProperty("projeto_fast_track")
+    val fastTrack: Boolean,
+
     val createdAt: Instant? = null,
     val updatedAt: Instant? = null
 )
@@ -55,6 +70,11 @@ fun Project.toFindByIdResponse() = ProjectFindByIdResponse(
     framework = this.framework,
     dcProtection = this.dcProtection,
     systemPower = this.systemPower,
+    unitControl = this.unitControl,
+    description = this.description,
+    servicesNames = this.servicesNames,
+    projectType = this.projectType,
+    fastTrack = this.fastTrack,
     createdAt = this.createdAt,
     updatedAt = this.updatedAt
 )

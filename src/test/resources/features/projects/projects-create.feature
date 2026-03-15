@@ -25,7 +25,7 @@ Feature: Project
     """
     {
         "clienteId": "da30fcdc-b9ed-402b-a359-de324226bee7",
-        "addressId": "019ca71b-3183-7a8b-8f71-e44a327a7846",
+        "enderecoId": "019ca71b-3183-7a8b-8f71-e44a327a7846",
         "concessionaria": "CEMIG",
         "protocoloConcessionaria": "PROT-2024-001",
         "classe": "Residencial",
@@ -35,7 +35,12 @@ Feature: Project
         "protecaoCC": "Disjuntor CC 20A",
         "potenciaSistema": 5.5,
         "status": "Em Análise",
-        "valor": 15000.00
+        "valor": 15000.00,
+        "unidade_controladora": "UC-001",
+        "descrição": "Projeto de instalação de painel solar residencial",
+        "servicos": ["Instalação", "Manutenção"],
+        "tipo_projeto": "Solar",
+        "projeto_fast_track": false
     }
     """
     Then the response status code should be 201
@@ -61,7 +66,10 @@ Feature: Project
         "modalidade": "Geração Distribuída",
         "enquadramento": "Microgeração",
         "status": "Em Análise",
-        "valor": 15000.00
+        "valor": 15000.00,
+        "unidade_controladora": "UC-001",
+        "tipo_projeto": "Solar",
+        "projeto_fast_track": false
     }
     """
     Then the response status code should be 201

@@ -1,7 +1,6 @@
 package projects.infra.fileconverter.converters
 
 import org.springframework.web.multipart.MultipartFile
-import projects.infra.fileconverter.converters.FileConverter
 import projects.web.projects.port.`in`.ProjectBatchCreateRequest
 import projects.web.projects.port.`in`.ProjectCreateRequest
 
@@ -40,7 +39,13 @@ abstract class AbstractProjectFileConverter : FileConverter {
             dcProtection = getField(record, "protecaocc", "protecaoCC"),
             systemPower = getField(record, "potenciasistema", "potenciaSistema")?.toDoubleOrNull(),
             status = getField(record, "status"),
-            amount = getField(record, "valor", "amount")
+            amount = getField(record, "valor", "amount"),
+            coordinates = null,
+            unitControl = getField(record, "unidadecontroladora", "unidade_controladora", "unitControl") ?: "default",
+            description = getField(record, "descricao", "descrição", "description"),
+            servicesNames = getField(record, "servicos", "servicesNames")?.split(",")?.map { it.trim() },
+            projectType = getField(record, "tipoprojeto", "tipo_projeto", "projectType") ?: "standard",
+            fastTrack = getField(record, "fasttrack", "projetofasttrack", "projeto_fast_track")?.toBoolean() ?: false
         )
     }
 

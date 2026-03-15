@@ -20,7 +20,10 @@ Feature: Project Batch Create
                 "protecaoCC": "Disjuntor CC 20A",
                 "potenciaSistema": 5.5,
                 "status": "Em Análise",
-                "valor": 15000.00
+                "valor": 15000.00,
+                "unidade_controladora": "UC-001",
+                "tipo_projeto": "Solar",
+                "projeto_fast_track": false
             },
             {
                 "clienteId": "550e8400-e29b-41d4-a716-446655440002",
@@ -33,7 +36,10 @@ Feature: Project Batch Create
                 "protecaoCC": "Disjuntor CC 32A",
                 "potenciaSistema": 15.8,
                 "status": "Em Análise",
-                "valor": 15000.00
+                "valor": 15000.00,
+                "unidade_controladora": "UC-002",
+                "tipo_projeto": "Solar",
+                "projeto_fast_track": false
             },
             {
                 "clienteId": "550e8400-e29b-41d4-a716-446655440003",
@@ -46,7 +52,10 @@ Feature: Project Batch Create
                 "protecaoCC": "Disjuntor CC 50A",
                 "potenciaSistema": 75.0,
                 "status": "Em Análise",
-                "valor": 15000.00
+                "valor": 15000.00,
+                "unidade_controladora": "UC-003",
+                "tipo_projeto": "Solar",
+                "projeto_fast_track": false
             }
         ]
     }
@@ -88,7 +97,10 @@ Feature: Project Batch Create
                 "modalidade": "Geração Distribuída",
                 "enquadramento": "Microgeração",
                 "status": "Em Análise",
-                "valor": 15000.00
+                "valor": 15000.00,
+                "unidade_controladora": "UC-004",
+                "tipo_projeto": "Solar",
+                "projeto_fast_track": false
             },
             {
                 "clienteId": "550e8400-e29b-41d4-a716-446655440005",
@@ -100,7 +112,10 @@ Feature: Project Batch Create
                 "modalidade": "Geração Distribuída",
                 "enquadramento": "Minigeração",
                 "status": "Em Análise",
-                "valor": 15000.00
+                "valor": 15000.00,
+                "unidade_controladora": "UC-005",
+                "tipo_projeto": "Solar",
+                "projeto_fast_track": false
             }
         ]
     }

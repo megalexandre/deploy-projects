@@ -42,6 +42,21 @@ class ProjectPaginateResponse (
     @field:JsonProperty("status")
     val status: String,
 
+    @field:JsonProperty("unidade_controladora")
+    val unitControl: String,
+
+    @field:JsonProperty("descrição")
+    val description: String?,
+
+    @field:JsonProperty("servicos")
+    val servicesNames: List<String>?,
+
+    @field:JsonProperty("tipo_projeto")
+    val projectType: String,
+
+    @field:JsonProperty("projeto_fast_track")
+    val fastTrack: Boolean,
+
     )
 
 fun Project.toPaginateResponse() = ProjectPaginateResponse(
@@ -56,5 +71,10 @@ fun Project.toPaginateResponse() = ProjectPaginateResponse(
     dcProtection = this.dcProtection,
     systemPower = this.systemPower,
     amount = this.amount,
-    status = this.status
+    status = this.status,
+    unitControl = this.unitControl,
+    description = this.description,
+    servicesNames = this.servicesNames,
+    projectType = this.projectType,
+    fastTrack = this.fastTrack
 )

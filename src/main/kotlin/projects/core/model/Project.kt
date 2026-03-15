@@ -18,9 +18,18 @@ data class Project(
     val address: Address? = null,
     val amount : BigDecimal,
     val status: String,
-
+    val coordinates: Coordinates? = null,
+    val unitControl: String,
+    val description: String?,
+    val servicesNames: List<String>?,
+    val projectType: String,
+    val fastTrack: Boolean,
     val createdAt: Instant? = null,
     val updatedAt: Instant? = null
 )
 
+data class Coordinates(
+    val lat: String,
+    val long: String
+)
 

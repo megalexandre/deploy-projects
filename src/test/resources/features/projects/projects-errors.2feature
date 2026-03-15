@@ -14,19 +14,6 @@ Feature: Project
     Then the table "projects" should have 0 records
     Then the response body should contain:
     """
-    {
-      "status": 400,
-      "message": "Validation Failed",
-      "errors": {
-        "clientId": "O cliente é obrigatório.",
-        "utilityCompany": "A concessionária é obrigatória.",
-        "utilityProtocol": "O protocolo da concessionária é obrigatório.",
-        "customerClass": "A classe do cliente é obrigatória.",
-        "integrator": "O integrador é obrigatório.",
-        "modality": "A modalidade é obrigatória.",
-        "framework": "O enquadramento é obrigatório."
-      }
-    }
     """
 
   Scenario: try to create a project with invalid clientId

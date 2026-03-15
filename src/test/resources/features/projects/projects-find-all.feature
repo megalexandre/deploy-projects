@@ -29,6 +29,11 @@ Feature: Project
       "systemPower": 5.5,
       "status": "Em Análise",
       "amount": 15000,
+      "unitControl": "UC-001",
+      "description": "Teste find all",
+      "servicesNames": ["Instalação"],
+      "projectType": "Solar",
+      "fastTrack": false,
       "createdAt": "2026-02-10T10:00:00Z",
       "updatedAt": "2026-02-10T10:00:00Z"
     }
@@ -40,19 +45,23 @@ Feature: Project
     """
     [
       {
-        "id" : "da30fcdc-b9ed-402b-a359-de324226bee7",
-        "clienteId" : "da30fcdc-b9ed-402b-a359-de324226bee7",
-        "concessionaria" : "CEMIG",
-        "protocoloConcessionaria" : "PROT-2024-001",
-        "endereco" : null,
-        "classe" : "Residencial",
-        "integrator" : "Solar Tech Solutions",
-        "modalidade" : "Geração Distribuída",
-        "enquadramento" : "Microgeração",
-        "protecaoCC" : "Disjuntor CC 20A",
-        "potenciaSistema" : 5.5,
-        "valor" : 15000.00,
-        "status" : "Em Análise"
+        "classe": "Residencial",
+        "clienteId": "da30fcdc-b9ed-402b-a359-de324226bee7",
+        "concessionaria": "CEMIG",
+        "descrição": "Teste find all",
+        "enquadramento": "Microgeração",
+        "id": "da30fcdc-b9ed-402b-a359-de324226bee7",
+        "integrator": "Solar Tech Solutions",
+        "modalidade": "Geração Distribuída",
+        "potenciaSistema": 5.5,
+        "projeto_fast_track": false,
+        "protecaoCC": "Disjuntor CC 20A",
+        "protocoloConcessionaria": "PROT-2024-001",
+        "servicos": ["Instalação"],
+        "status": "Em Análise",
+        "tipo_projeto": "Solar",
+        "unidade_controladora": "UC-001",
+        "valor": 15000.00
       }
     ]
     """

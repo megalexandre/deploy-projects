@@ -20,6 +20,11 @@ Feature: Project
       "systemPower": 5.5,
       "status": "Em Análise",
       "amount": 15000.00,
+      "unitControl": "UC-001",
+      "description": "Teste",
+      "servicesNames": ["Instalação"],
+      "projectType": "Solar",
+      "fastTrack": false,
       "createdAt": "2026-02-10T10:00:00Z",
       "updatedAt": "2026-02-10T10:00:00Z"
     }
@@ -31,17 +36,24 @@ Feature: Project
     """
     {
       "id": "da30fcdc-b9ed-402b-a359-de324226bee7",
-      "classe": "Residencial",
       "clienteId": "da30fcdc-b9ed-402b-a359-de324226bee7",
-      "endereco": null,
       "concessionaria": "CEMIG",
-      "createdAt": "2026-02-10T10:00:00Z",
-      "enquadramento": "Microgeração",
+      "protocoloConcessionaria": "PROT-2024-001",
+      "endereco": null,
+      "classe": "Residencial",
       "integrator": "Solar Tech Solutions",
       "modalidade": "Geração Distribuída",
-      "potenciaSistema": 5.5,
+      "enquadramento": "Microgeração",
       "protecaoCC": "Disjuntor CC 20A",
-      "protocoloConcessionaria": "PROT-2024-001",
+      "potenciaSistema": 5.5,
+      "unidade_controladora": "UC-001",
+      "descrição": "Teste",
+      "servicos": [
+          "Instalação"
+      ],
+      "tipo_projeto": "Solar",
+      "projeto_fast_track": false,
+      "createdAt": "2026-02-10T10:00:00Z",
       "updatedAt": "2026-02-10T10:00:00Z"
     }
     """
@@ -69,7 +81,7 @@ Feature: Project
     """
     {
       "id": "da30fcdc-b9ed-402b-a359-de324226bee7",
-      "addressId": "019ca71b-3183-7a8b-8f71-e44a327a7846",
+      "address_id": "019ca71b-3183-7a8b-8f71-e44a327a7846",
       "clientId": "da30fcdc-b9ed-402b-a359-de324226bee7",
       "utilityCompany": "CEMIG",
       "utilityProtocol": "PROT-2024-001",
@@ -81,6 +93,11 @@ Feature: Project
       "systemPower": 5.5,
       "status": "Em Análise",
       "amount": 15000.00,
+      "unitControl": "UC-001",
+      "description": "Teste",
+      "servicesNames": ["Instalação"],
+      "projectType": "Solar",
+      "fastTrack": false,
       "createdAt": "2026-02-10T10:00:00Z",
       "updatedAt": "2026-02-10T10:00:00Z"
     }
@@ -91,30 +108,23 @@ Feature: Project
     Then the response body should contain:
     """
     {
-      "id": "da30fcdc-b9ed-402b-a359-de324226bee7",
       "classe": "Residencial",
       "clienteId": "da30fcdc-b9ed-402b-a359-de324226bee7",
-      "endereco":
-      {
-        "id":"019ca71b-3183-7a8b-8f71-e44a327a7846",
-        "link":"https://maps.google.com/?q=-11.123456,-40.123456",
-        "place":"any name",
-        "cep":"41234567",
-        "number":"12",
-        "address":"any name",
-        "complement":"description",
-        "neighborhood":"jacobina III",
-        "city":"jacobina",
-        "state":"ba"
-      },
       "concessionaria": "CEMIG",
       "createdAt": "2026-02-10T10:00:00Z",
+      "descrição": "Teste",
+      "endereco": null,
       "enquadramento": "Microgeração",
+      "id": "da30fcdc-b9ed-402b-a359-de324226bee7",
       "integrator": "Solar Tech Solutions",
       "modalidade": "Geração Distribuída",
       "potenciaSistema": 5.5,
+      "projeto_fast_track": false,
       "protecaoCC": "Disjuntor CC 20A",
       "protocoloConcessionaria": "PROT-2024-001",
+      "servicos": ["Instalação"],
+      "tipo_projeto": "Solar",
+      "unidade_controladora": "UC-001",
       "updatedAt": "2026-02-10T10:00:00Z"
     }
     """

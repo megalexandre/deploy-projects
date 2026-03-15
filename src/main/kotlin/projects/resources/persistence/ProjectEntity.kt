@@ -1,6 +1,7 @@
 package projects.resources.persistence
 
 import jakarta.persistence.*
+import projects.core.model.Coordinates
 import projects.core.model.Project
 import java.math.BigDecimal
 import java.time.Instant
@@ -58,16 +59,41 @@ data class ProjectEntity(
     var createdAt: Instant,
 
     @Column(name = "updated_at", nullable = false)
-    var updatedAt: Instant
-) {
+    var updatedAt: Instant,
+
+    @Column(name = "latitude")
+    var latitude: String?,
+
+    @Column(name = "longitude")
+    var longitude: String?,
+
+    @Column(name = "unit_control", nullable = false)
+    var unitControl: String,
+
+    @Column(name = "description", length = 1024)
+    var description: String?,
+
+    @Column(name = "services_names")
+    var servicesNames: String?,
+
+    @Column(name = "project_type", nullable = false)
+    var projectType: String,
+
+    @Column(name = "fast_track", nullable = false)
+    var fastTrack: Boolean,
+    ) {
 
     @PreUpdate
     fun preUpdate() {
         updatedAt = Instant.now()
     }
 
-    fun toDomain(): Project =
-        Project(
+    fun toDomain(): Project {
+        val lat = latitude
+        val long = longitude
+        val coordinates = if (lat != null && long != null) Coordinates(lat, long) else null
+
+        return Project(
             id = id.toString(),
             clientId = clientId.toString(),
             addressId = addressId?.toString(),
@@ -83,8 +109,15 @@ data class ProjectEntity(
             createdAt = createdAt,
             amount = amount,
             status = status,
+            coordinates = coordinates,
+            unitControl = unitControl,
+            description = description,
+            servicesNames = servicesNames?.split(",")?.map { it.trim() },
+            projectType = projectType,
+            fastTrack = fastTrack,
             updatedAt = updatedAt
         )
+    }
 
     companion object {
         fun from(domain: Project): ProjectEntity =
@@ -103,6 +136,13 @@ data class ProjectEntity(
                 systemPower = domain.systemPower,
                 amount = domain.amount,
                 status = domain.status,
+                latitude = domain.coordinates?.lat,
+                longitude = domain.coordinates?.long,
+                unitControl = domain.unitControl,
+                description = domain.description,
+                servicesNames = domain.servicesNames?.joinToString(","),
+                projectType = domain.projectType,
+                fastTrack = domain.fastTrack,
                 createdAt = domain.createdAt ?: Instant.now(),
                 updatedAt = domain.updatedAt ?: Instant.now()
             )

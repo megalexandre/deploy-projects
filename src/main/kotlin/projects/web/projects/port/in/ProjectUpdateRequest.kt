@@ -5,7 +5,6 @@ import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.Pattern
 import jakarta.validation.constraints.Size
 import projects.core.model.Project
-import java.math.BigDecimal
 
 class ProjectUpdateRequest(
 
@@ -26,7 +25,13 @@ class ProjectUpdateRequest(
     status: String?,
     amount: String?,
     dcProtection: String?,
-    systemPower: Double?
+    systemPower: Double?,
+    coordinates: CoordinatesCreateRequest?,
+    description: String?,
+    servicesNames: List<String>?,
+    projectType: String,
+    fastTrack: Boolean,
+    unitControl: String,
 
 ): ProjectCreateRequest(
     clientId = clientId,
@@ -41,6 +46,12 @@ class ProjectUpdateRequest(
     dcProtection = dcProtection,
     systemPower = systemPower,
     addressId = addressId,
+    coordinates = coordinates,
+    servicesNames = servicesNames,
+    projectType = projectType,
+    description = description,
+    fastTrack = fastTrack,
+    unitControl = unitControl
 )  {
 
     override fun toDomain(): Project {
