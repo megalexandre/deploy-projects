@@ -1,6 +1,7 @@
 package projects.web.projects.port.out
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import projects.core.model.Coordinates
 import projects.core.model.Project
 import projects.web.address.port.out.AddressCreateResponse
 import projects.web.address.port.out.toResponse
@@ -54,6 +55,9 @@ class ProjectFindByIdResponse (
     @field:JsonProperty("projeto_fast_track")
     val fastTrack: Boolean,
 
+    @field:JsonProperty("coordenadas")
+    val coordinates: Coordinates? = null,
+
     val createdAt: Instant? = null,
     val updatedAt: Instant? = null
 )
@@ -61,6 +65,7 @@ class ProjectFindByIdResponse (
 fun Project.toFindByIdResponse() = ProjectFindByIdResponse(
     id = this.id,
     clientId = this.clientId,
+    coordinates = this.coordinates,
     address = this.address?.toResponse(),
     utilityCompany = this.utilityCompany,
     utilityProtocol = this.utilityProtocol,

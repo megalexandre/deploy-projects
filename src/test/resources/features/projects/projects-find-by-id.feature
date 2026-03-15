@@ -25,6 +25,10 @@ Feature: Project
       "servicesNames": ["Instalação"],
       "projectType": "Solar",
       "fastTrack": false,
+      "coordinates": {
+        "latitude": -11.123456,
+        "longitude": -40.123456
+      },
       "createdAt": "2026-02-10T10:00:00Z",
       "updatedAt": "2026-02-10T10:00:00Z"
     }
@@ -51,6 +55,10 @@ Feature: Project
       "servicos": [
           "Instalação"
       ],
+      "coordenadas": {
+        "latitude": "-11.123456",
+        "longitude": "-40.123456"
+      },
       "tipo_projeto": "Solar",
       "projeto_fast_track": false,
       "createdAt": "2026-02-10T10:00:00Z",
@@ -84,6 +92,10 @@ Feature: Project
       "address_id": "019ca71b-3183-7a8b-8f71-e44a327a7846",
       "clientId": "da30fcdc-b9ed-402b-a359-de324226bee7",
       "utilityCompany": "CEMIG",
+      "coordinates": {
+        "latitude": "-11.123456",
+        "longitude": "-40.123456"
+      },
       "utilityProtocol": "PROT-2024-001",
       "customerClass": "Residencial",
       "integrator": "Solar Tech Solutions",
@@ -108,6 +120,10 @@ Feature: Project
     Then the response body should contain:
     """
     {
+      "coordenadas": {
+        "latitude": "-11.123456",
+        "longitude": "-40.123456"
+      },
       "classe": "Residencial",
       "clienteId": "da30fcdc-b9ed-402b-a359-de324226bee7",
       "concessionaria": "CEMIG",

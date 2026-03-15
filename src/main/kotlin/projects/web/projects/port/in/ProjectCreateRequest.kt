@@ -143,7 +143,7 @@ class CoordinatesCreateRequest(
     val longitude: String?,
 ){
     fun toDomain() = Coordinates(
-        lat = latitude!!,
-        long = longitude!!
+        latitude = latitude!!,
+        longitude = longitude!!
     )
 }

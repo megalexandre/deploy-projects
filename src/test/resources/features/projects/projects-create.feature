@@ -40,7 +40,11 @@ Feature: Project
         "descrição": "Projeto de instalação de painel solar residencial",
         "servicos": ["Instalação", "Manutenção"],
         "tipo_projeto": "Solar",
-        "projeto_fast_track": false
+        "projeto_fast_track": false,
+        "coordenadas": {
+            "latitude": -11.123456,
+            "longitude": -40.123456
+        }
     }
     """
     Then the response status code should be 201
