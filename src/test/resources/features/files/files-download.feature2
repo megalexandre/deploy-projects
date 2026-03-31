@@ -1,0 +1,73 @@
+Feature: Files Download
+
+  Background:
+    Given I am authenticated
+
+  Scenario: Download file successfully
+
+    Given the following file exists in the database:
+    """
+    {
+      "id": "019ca71b-3183-7a8b-8f71-e44a327a7850",
+      "itemId": "019ca71b-3183-7a8b-8f71-e44a327a7846",
+      "fileName": "document.pdf",
+      "urlS3": "https://bucket.s3.amazonaws.com/items/019ca71b-3183-7a8b-8f71-e44a327a7846/019ca71b-3183-7a8b-8f71-e44a327a7850_document.pdf",
+      "size": 1024,
+      "createdAt": "2026-03-31T10:00:00Z"
+    }
+    """
+
+    Given the file "019ca71b-3183-7a8b-8f71-e44a327a7850_document.pdf" exists in S3
+
+    When I GET "/api/v1/file/download/019ca71b-3183-7a8b-8f71-e44a327a7850"
+    Then the response status code should be 200
+    Then the response header "Content-Disposition" should contain "attachment; filename=\"document.pdf\""
+    Then the response header "Content-Type" should be "application/octet-stream"
+    Then the response body should be binary content
+
+  Scenario: Download file that does not exist
+
+    When I GET "/api/v1/file/download/019ca71b-3183-7a8b-8f71-e44a327a9999"
+    Then the response status code should be 404
+
+  Scenario: Download file with special characters in name
+
+    Given the following file exists in the database:
+    """
+    {
+      "id": "019ca71b-3183-7a8b-8f71-e44a327a7850",
+      "itemId": "019ca71b-3183-7a8b-8f71-e44a327a7846",
+      "fileName": "relatório-financeiro-2026.pdf",
+      "urlS3": "https://bucket.s3.amazonaws.com/items/019ca71b-3183-7a8b-8f71-e44a327a7846/019ca71b-3183-7a8b-8f71-e44a327a7850_relatório-financeiro-2026.pdf",
+      "size": 2048,
+      "createdAt": "2026-03-31T10:00:00Z"
+    }
+    """
+
+    Given the file "019ca71b-3183-7a8b-8f71-e44a327a7850_relatório-financeiro-2026.pdf" exists in S3
+
+    When I GET "/api/v1/file/download/019ca71b-3183-7a8b-8f71-e44a327a7850"
+    Then the response status code should be 200
+    Then the response header "Content-Disposition" should contain "attachment; filename=\"relatório-financeiro-2026.pdf\""
+
+  Scenario: Download large file successfully
+
+    Given the following file exists in the database:
+    """
+    {
+      "id": "019ca71b-3183-7a8b-8f71-e44a327a7850",
+      "itemId": "019ca71b-3183-7a8b-8f71-e44a327a7846",
+      "fileName": "large-video.mp4",
+      "urlS3": "https://bucket.s3.amazonaws.com/items/019ca71b-3183-7a8b-8f71-e44a327a7846/019ca71b-3183-7a8b-8f71-e44a327a7850_large-video.mp4",
+      "size": 104857600,
+      "createdAt": "2026-03-31T10:00:00Z"
+    }
+    """
+
+    Given the file "019ca71b-3183-7a8b-8f71-e44a327a7850_large-video.mp4" exists in S3
+
+    When I GET "/api/v1/file/download/019ca71b-3183-7a8b-8f71-e44a327a7850"
+    Then the response status code should be 200
+    Then the response header "Content-Disposition" should contain "attachment; filename=\"large-video.mp4\""
+    Then the response body size should be 104857600 bytes
+

@@ -1,0 +1,138 @@
+Feature: Files Delete by Item ID
+
+  Background:
+    Given I am authenticated
+
+  Scenario: Delete all files of an item successfully
+
+    Given the following file exists in the database:
+    """
+    {
+      "id": "019ca71b-3183-7a8b-8f71-e44a327a7850",
+      "itemId": "019ca71b-3183-7a8b-8f71-e44a327a7846",
+      "fileName": "document.pdf",
+      "urlS3": "https://bucket.s3.amazonaws.com/items/019ca71b-3183-7a8b-8f71-e44a327a7846/019ca71b-3183-7a8b-8f71-e44a327a7850_document.pdf",
+      "size": 1024,
+      "createdAt": "2026-03-31T10:00:00Z"
+    }
+    """
+
+    Given the following file exists in the database:
+    """
+    {
+      "id": "019ca71b-3183-7a8b-8f71-e44a327a7851",
+      "itemId": "019ca71b-3183-7a8b-8f71-e44a327a7846",
+      "fileName": "image.jpg",
+      "urlS3": "https://bucket.s3.amazonaws.com/items/019ca71b-3183-7a8b-8f71-e44a327a7846/019ca71b-3183-7a8b-8f71-e44a327a7851_image.jpg",
+      "size": 2048,
+      "createdAt": "2026-03-31T11:00:00Z"
+    }
+    """
+
+    Given the following file exists in the database:
+    """
+    {
+      "id": "019ca71b-3183-7a8b-8f71-e44a327a7852",
+      "itemId": "019ca71b-3183-7a8b-8f71-e44a327a7846",
+      "fileName": "spreadsheet.xlsx",
+      "urlS3": "https://bucket.s3.amazonaws.com/items/019ca71b-3183-7a8b-8f71-e44a327a7846/019ca71b-3183-7a8b-8f71-e44a327a7852_spreadsheet.xlsx",
+      "size": 4096,
+      "createdAt": "2026-03-31T12:00:00Z"
+    }
+    """
+
+    Given the file "019ca71b-3183-7a8b-8f71-e44a327a7850_document.pdf" exists in S3
+    Given the file "019ca71b-3183-7a8b-8f71-e44a327a7851_image.jpg" exists in S3
+    Given the file "019ca71b-3183-7a8b-8f71-e44a327a7852_spreadsheet.xlsx" exists in S3
+
+    When I DELETE "/api/v1/file/delete/item/019ca71b-3183-7a8b-8f71-e44a327a7846"
+    Then the response status code should be 200
+    Then the response body should contain:
+    """
+    {
+      "deletedCount": 3
+    }
+    """
+    Then the table "files" should have 0 records
+    Then the file "items/019ca71b-3183-7a8b-8f71-e44a327a7846/019ca71b-3183-7a8b-8f71-e44a327a7850_document.pdf" should not exist in S3
+    Then the file "items/019ca71b-3183-7a8b-8f71-e44a327a7846/019ca71b-3183-7a8b-8f71-e44a327a7851_image.jpg" should not exist in S3
+    Then the file "items/019ca71b-3183-7a8b-8f71-e44a327a7846/019ca71b-3183-7a8b-8f71-e44a327a7852_spreadsheet.xlsx" should not exist in S3
+
+  Scenario: Delete files when item has no files
+
+    When I DELETE "/api/v1/file/delete/item/019ca71b-3183-7a8b-8f71-e44a327a7846"
+    Then the response status code should be 204
+
+  Scenario: Delete files of one item does not affect files of another item
+
+    Given the following file exists in the database:
+    """
+    {
+      "id": "019ca71b-3183-7a8b-8f71-e44a327a7850",
+      "itemId": "019ca71b-3183-7a8b-8f71-e44a327a7846",
+      "fileName": "document1.pdf",
+      "urlS3": "https://bucket.s3.amazonaws.com/items/019ca71b-3183-7a8b-8f71-e44a327a7846/019ca71b-3183-7a8b-8f71-e44a327a7850_document1.pdf",
+      "size": 1024,
+      "createdAt": "2026-03-31T10:00:00Z"
+    }
+    """
+
+    Given the following file exists in the database:
+    """
+    {
+      "id": "019ca71b-3183-7a8b-8f71-e44a327a7851",
+      "itemId": "019ca71b-3183-7a8b-8f71-e44a327a7847",
+      "fileName": "document2.pdf",
+      "urlS3": "https://bucket.s3.amazonaws.com/items/019ca71b-3183-7a8b-8f71-e44a327a7847/019ca71b-3183-7a8b-8f71-e44a327a7851_document2.pdf",
+      "size": 2048,
+      "createdAt": "2026-03-31T11:00:00Z"
+    }
+    """
+
+    Given the file "019ca71b-3183-7a8b-8f71-e44a327a7850_document1.pdf" exists in S3
+    Given the file "019ca71b-3183-7a8b-8f71-e44a327a7851_document2.pdf" exists in S3
+
+    When I DELETE "/api/v1/file/delete/item/019ca71b-3183-7a8b-8f71-e44a327a7846"
+    Then the response status code should be 200
+    Then the response body should contain:
+    """
+    {
+      "deletedCount": 1
+    }
+    """
+    Then the table "files" should have 1 records
+
+    When I GET "/api/v1/file/019ca71b-3183-7a8b-8f71-e44a327a7847"
+    Then the response status code should be 200
+    Then the response body should contain:
+    """
+    [
+      {
+        "id": "019ca71b-3183-7a8b-8f71-e44a327a7851",
+        "fileName": "document2.pdf"
+      }
+    ]
+    """
+
+  Scenario: Delete all files and verify list returns empty
+
+    Given the following file exists in the database:
+    """
+    {
+      "id": "019ca71b-3183-7a8b-8f71-e44a327a7850",
+      "itemId": "019ca71b-3183-7a8b-8f71-e44a327a7846",
+      "fileName": "document.pdf",
+      "urlS3": "https://bucket.s3.amazonaws.com/items/019ca71b-3183-7a8b-8f71-e44a327a7846/019ca71b-3183-7a8b-8f71-e44a327a7850_document.pdf",
+      "size": 1024,
+      "createdAt": "2026-03-31T10:00:00Z"
+    }
+    """
+
+    Given the file "019ca71b-3183-7a8b-8f71-e44a327a7850_document.pdf" exists in S3
+
+    When I DELETE "/api/v1/file/delete/item/019ca71b-3183-7a8b-8f71-e44a327a7846"
+    Then the response status code should be 200
+
+    When I GET "/api/v1/file/019ca71b-3183-7a8b-8f71-e44a327a7846"
+    Then the response status code should be 204
+

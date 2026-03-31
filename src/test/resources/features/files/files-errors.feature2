@@ -1,0 +1,154 @@
+Feature: Files Error Scenarios
+
+  Background:
+    Given I am authenticated
+
+  Scenario: Upload file without authentication
+
+    Given I am not authenticated
+    When I upload a file to "/api/v1/file/upload" with:
+      | id    | 019ca71b-3183-7a8b-8f71-e44a327a7846 |
+      | files | test-document.pdf                     |
+
+    Then the response status code should be 401
+
+  Scenario: Upload file with invalid item ID format
+
+    When I upload a file to "/api/v1/file/upload" with:
+      | id    | invalid-id        |
+      | files | test-document.pdf |
+
+    Then the response status code should be 400
+
+  Scenario: Upload file without files parameter
+
+    When I POST the payload to "/api/v1/file/upload" with body:
+    """
+    {
+      "id": "019ca71b-3183-7a8b-8f71-e44a327a7846"
+    }
+    """
+    Then the response status code should be 400
+
+  Scenario: Upload file without id parameter
+
+    When I upload a file to "/api/v1/file/upload" with:
+      | files | test-document.pdf |
+
+    Then the response status code should be 400
+
+  Scenario: List files with invalid item ID format
+
+    When I GET "/api/v1/file/invalid-id"
+    Then the response status code should be 400
+
+  Scenario: Download file with invalid file ID format
+
+    When I GET "/api/v1/file/download/invalid-id"
+    Then the response status code should be 400
+
+  Scenario: Delete file with invalid file ID format
+
+    When I DELETE "/api/v1/file/delete/invalid-id"
+    Then the response status code should be 400
+
+  Scenario: Delete files by item with invalid item ID format
+
+    When I DELETE "/api/v1/file/delete/item/invalid-id"
+    Then the response status code should be 400
+
+  Scenario: Upload file exceeding maximum size limit
+
+    When I upload a file to "/api/v1/file/upload" with:
+      | id    | 019ca71b-3183-7a8b-8f71-e44a327a7846 |
+      | files | huge-file.zip                         |
+      | size  | 1073741824                            |
+
+    Then the response status code should be 413
+    Then the response body should contain:
+    """
+    {
+      "message": "File size exceeds maximum allowed size"
+    }
+    """
+
+  Scenario: Upload file with unsupported file type
+
+    When I upload a file to "/api/v1/file/upload" with:
+      | id    | 019ca71b-3183-7a8b-8f71-e44a327a7846 |
+      | files | malicious.exe                         |
+
+    Then the response status code should be 415
+    Then the response body should contain:
+    """
+    {
+      "message": "Unsupported file type"
+    }
+    """
+
+  Scenario: Download file when S3 is unavailable
+
+    Given the following file exists in the database:
+    """
+    {
+      "id": "019ca71b-3183-7a8b-8f71-e44a327a7850",
+      "itemId": "019ca71b-3183-7a8b-8f71-e44a327a7846",
+      "fileName": "document.pdf",
+      "urlS3": "https://bucket.s3.amazonaws.com/items/019ca71b-3183-7a8b-8f71-e44a327a7846/019ca71b-3183-7a8b-8f71-e44a327a7850_document.pdf",
+      "size": 1024,
+      "createdAt": "2026-03-31T10:00:00Z"
+    }
+    """
+
+    Given S3 service is unavailable
+
+    When I GET "/api/v1/file/download/019ca71b-3183-7a8b-8f71-e44a327a7850"
+    Then the response status code should be 503
+    Then the response body should contain:
+    """
+    {
+      "message": "Storage service temporarily unavailable"
+    }
+    """
+
+  Scenario: Upload file when S3 is unavailable
+
+    Given S3 service is unavailable
+
+    When I upload a file to "/api/v1/file/upload" with:
+      | id    | 019ca71b-3183-7a8b-8f71-e44a327a7846 |
+      | files | test-document.pdf                     |
+
+    Then the response status code should be 503
+    Then the response body should contain:
+    """
+    {
+      "message": "Storage service temporarily unavailable"
+    }
+    """
+
+  Scenario: Delete file when S3 is unavailable
+
+    Given the following file exists in the database:
+    """
+    {
+      "id": "019ca71b-3183-7a8b-8f71-e44a327a7850",
+      "itemId": "019ca71b-3183-7a8b-8f71-e44a327a7846",
+      "fileName": "document.pdf",
+      "urlS3": "https://bucket.s3.amazonaws.com/items/019ca71b-3183-7a8b-8f71-e44a327a7846/019ca71b-3183-7a8b-8f71-e44a327a7850_document.pdf",
+      "size": 1024,
+      "createdAt": "2026-03-31T10:00:00Z"
+    }
+    """
+
+    Given S3 service is unavailable
+
+    When I DELETE "/api/v1/file/delete/019ca71b-3183-7a8b-8f71-e44a327a7850"
+    Then the response status code should be 503
+    Then the response body should contain:
+    """
+    {
+      "message": "Storage service temporarily unavailable"
+    }
+    """
+
