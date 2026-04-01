@@ -64,6 +64,7 @@ dependencies {
 	testImplementation("org.testcontainers:testcontainers")
 	testImplementation("org.testcontainers:junit-jupiter")
 	testImplementation("org.testcontainers:postgresql")
+	testImplementation("org.testcontainers:localstack")
 
 	// Cucumber
 	testImplementation("io.cucumber:cucumber-java:7.20.1")
