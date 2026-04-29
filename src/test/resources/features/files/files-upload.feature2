@@ -4,11 +4,9 @@ Feature: Files Upload
     Given I am authenticated
 
   Scenario: Upload single file successfully
-
     When I upload a file to "/api/v1/file/upload" with:
       | id    | 019ca71b-3183-7a8b-8f71-e44a327a7846 |
       | files | test-document.pdf                     |
-
     Then the response status code should be 200
     Then the response body should contain:
     """
@@ -16,7 +14,7 @@ Feature: Files Upload
       {
         "id": "${json-unit.regex}^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
         "fileName": "test-document.pdf",
-        "urlS3": "${json-unit.regex}^https://.*\\.s3\\.amazonaws\\.com/.*$",
+        "urlS3": "${json-unit.regex}^https?://.*$",
         "size": "${json-unit.any-number}",
         "createdAt": "${json-unit.any-string}"
       }
@@ -25,22 +23,18 @@ Feature: Files Upload
     Then the table "files" should have 1 records
 
   Scenario: Upload multiple files successfully
-
     When I upload files to "/api/v1/file/upload" with:
       | id    | 019ca71b-3183-7a8b-8f71-e44a327a7846 |
       | files | test-document.pdf,image.jpg,data.xlsx |
-
     Then the response status code should be 200
     Then the response body should have 3 items
     Then the table "files" should have 3 records
 
   Scenario: Upload file with large size
-
     When I upload a file to "/api/v1/file/upload" with:
       | id    | 019ca71b-3183-7a8b-8f71-e44a327a7846 |
       | files | large-file.zip                        |
       | size  | 10485760                              |
-
     Then the response status code should be 200
     Then the response body should contain:
     """
@@ -48,10 +42,11 @@ Feature: Files Upload
       {
         "id": "${json-unit.regex}^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
         "fileName": "large-file.zip",
-        "urlS3": "${json-unit.regex}^https://.*\\.s3\\.amazonaws\\.com/.*$",
+        "urlS3": "${json-unit.regex}^https?://.*$",
         "size": 10485760,
         "createdAt": "${json-unit.any-string}"
       }
     ]
     """
+    Then the table "files" should have 1 records
 

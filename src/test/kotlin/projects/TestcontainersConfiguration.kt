@@ -4,6 +4,8 @@ import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Primary
+import org.springframework.test.context.DynamicPropertyRegistry
+import org.springframework.test.context.DynamicPropertySource
 import org.testcontainers.containers.PostgreSQLContainer
 import org.testcontainers.containers.localstack.LocalStackContainer
 import org.testcontainers.utility.DockerImageName
@@ -14,6 +16,22 @@ import software.amazon.awssdk.services.s3.S3Client
 
 @TestConfiguration(proxyBeanMethods = false)
 class TestcontainersConfiguration {
+
+    companion object {
+        private val localStackContainer = LocalStackContainer(DockerImageName.parse("localstack/localstack:3.0"))
+            .withServices(LocalStackContainer.Service.S3)
+            .withReuse(true)
+            .apply { start() }
+
+        @JvmStatic
+        @DynamicPropertySource
+        fun properties(registry: DynamicPropertyRegistry) {
+            registry.add("aws.s3.endpoint") { localStackContainer.getEndpointOverride(LocalStackContainer.Service.S3).toString() }
+            registry.add("aws.s3.access-key") { localStackContainer.accessKey }
+            registry.add("aws.s3.secret-key") { localStackContainer.secretKey }
+            registry.add("aws.s3.region") { localStackContainer.region }
+        }
+    }
 
     @Bean
     @ServiceConnection
@@ -27,18 +45,11 @@ class TestcontainersConfiguration {
 
     @Bean
     fun localStackContainer(): LocalStackContainer {
-        val localStack = LocalStackContainer(DockerImageName.parse("localstack/localstack:3.0"))
-            .withServices(LocalStackContainer.Service.S3)
-            .withReuse(true)
-
-        localStack.start()
-
-        return localStack
+        return localStackContainer
     }
 
     @Bean
-    @Primary
-    fun s3Client(localStackContainer: LocalStackContainer): S3Client {
+    fun s3Client(): S3Client {
         return S3Client.builder()
             .endpointOverride(localStackContainer.getEndpointOverride(LocalStackContainer.Service.S3))
             .credentialsProvider(
@@ -50,6 +61,11 @@ class TestcontainersConfiguration {
                 )
             )
             .region(Region.of(localStackContainer.region))
+            .serviceConfiguration(
+                software.amazon.awssdk.services.s3.S3Configuration.builder()
+                    .pathStyleAccessEnabled(true)
+                    .build()
+            )
             .build()
     }
 }

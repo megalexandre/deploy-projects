@@ -168,5 +168,79 @@ class RestSteps {
         assertThatJson(actualJson)
             .isEqualTo(expectedJson)
     }
+
+    @When("I upload a file to {string} with:")
+    fun iUploadAFileToWith(endpoint: String, params: Map<String, String>) {
+        val itemId = params["id"] ?: throw IllegalArgumentException("id is required")
+        val fileName = params["files"] ?: throw IllegalArgumentException("files is required")
+        val fileSize = params["size"]?.toLongOrNull()
+
+        val file = if (fileSize != null) {
+            TestFileGenerator.createTestFileWithSize(fileName, fileSize)
+        } else {
+            TestFileGenerator.createTestFile(fileName)
+        }
+
+        val body = LinkedMultiValueMap<String, Any>()
+        body.add("id", itemId)
+        body.add("files", FileSystemResource(file))
+
+        val headers = HttpHeaders().apply {
+            contentType = MediaType.MULTIPART_FORM_DATA
+            TestContext.token?.let { setBearerAuth(it) }
+        }
+
+        val request = HttpEntity(body, headers)
+        response = restTemplate.postForEntity(endpoint, request, String::class.java)
+
+        // Cleanup temporary file
+        if (file.exists()) {
+            file.delete()
+        }
+    }
+
+    @When("I upload files to {string} with:")
+    fun iUploadFilesToWith(endpoint: String, params: Map<String, String>) {
+        val itemId = params["id"] ?: throw IllegalArgumentException("id is required")
+        val fileNames = params["files"]?.split(",")?.map { it.trim() }
+            ?: throw IllegalArgumentException("files is required")
+
+        val body = LinkedMultiValueMap<String, Any>()
+        body.add("id", itemId)
+
+        val createdFiles = mutableListOf<File>()
+
+        fileNames.forEach { fileName ->
+            val file = TestFileGenerator.createTestFile(fileName)
+            body.add("files", FileSystemResource(file))
+            createdFiles.add(file)
+        }
+
+        val headers = HttpHeaders().apply {
+            contentType = MediaType.MULTIPART_FORM_DATA
+            TestContext.token?.let { setBearerAuth(it) }
+        }
+
+        val request = HttpEntity(body, headers)
+        response = restTemplate.postForEntity(endpoint, request, String::class.java)
+
+        // Cleanup temporary files
+        createdFiles.forEach { file ->
+            if (file.exists()) {
+                file.delete()
+            }
+        }
+    }
+
+    @Then("the response body should have {int} items")
+    fun theResponseBodyShouldHaveItems(expectedCount: Int) {
+        val actualJson = response?.body ?: throw AssertionError("Response body is null")
+        val jsonArray = objectMapper.readTree(actualJson)
+
+        assertEquals(expectedCount, jsonArray.size()) {
+            "Expected $expectedCount items but got ${jsonArray.size()}"
+        }
+    }
 }
+
 

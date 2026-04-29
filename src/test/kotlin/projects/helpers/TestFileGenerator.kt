@@ -144,4 +144,51 @@ object TestFileGenerator {
 
         return file
     }
+
+    /**
+     * Creates a test file with the given name and default content
+     */
+    fun createTestFile(fileName: String): File {
+        val tmpDir = File(System.getProperty("java.io.tmpdir"))
+        val file = File(tmpDir, fileName)
+
+        val content = when {
+            fileName.endsWith(".pdf") -> "Mock PDF content for testing"
+            fileName.endsWith(".jpg") || fileName.endsWith(".jpeg") -> "Mock JPEG image content"
+            fileName.endsWith(".png") -> "Mock PNG image content"
+            fileName.endsWith(".xlsx") -> return createTestXlsxFile(fileName)
+            fileName.endsWith(".zip") -> "Mock ZIP archive content"
+            fileName.endsWith(".doc") || fileName.endsWith(".docx") -> "Mock document content"
+            else -> "Mock file content for $fileName"
+        }
+
+        file.writeText(content)
+        return file
+    }
+
+    /**
+     * Creates a test file with a specific size in bytes
+     */
+    fun createTestFileWithSize(fileName: String, sizeInBytes: Long): File {
+        val tmpDir = File(System.getProperty("java.io.tmpdir"))
+        val file = File(tmpDir, fileName)
+
+        // Create file with exact size by writing bytes
+        FileOutputStream(file).use { fos ->
+            val bufferSize = 8192
+            val buffer = ByteArray(bufferSize) { 'A'.code.toByte() }
+            var bytesWritten = 0L
+
+            while (bytesWritten < sizeInBytes) {
+                val remaining = sizeInBytes - bytesWritten
+                val toWrite = minOf(remaining, bufferSize.toLong()).toInt()
+                fos.write(buffer, 0, toWrite)
+                bytesWritten += toWrite
+            }
+        }
+
+        return file
+    }
 }
+
+

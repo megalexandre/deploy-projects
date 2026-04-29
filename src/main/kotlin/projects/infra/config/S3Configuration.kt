@@ -1,6 +1,7 @@
 package projects.infra.config
 
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials
@@ -26,6 +27,7 @@ class S3Configuration {
     private var endpoint: String? = null
 
     @Bean
+    @ConditionalOnMissingBean
     fun s3Client(): S3Client {
         val credentials = AwsBasicCredentials.create(accessKey, secretKey)
 
