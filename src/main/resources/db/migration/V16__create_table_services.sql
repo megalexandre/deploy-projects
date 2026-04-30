@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS services (
     created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
     updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
 
-    CONSTRAINT fk_service_customer FOREIGN KEY (customer_id) REFERENCES customer(id) ON DELETE CASCADE,
+    CONSTRAINT fk_service_customer FOREIGN KEY (customer_id) REFERENCES customers(id) ON DELETE CASCADE,
     CONSTRAINT chk_amount_positive CHECK (amount >= 0),
     CONSTRAINT chk_discount_percentage CHECK (discount_coupon_percentage >= 0 AND discount_coupon_percentage <= 100)
 );

@@ -2,6 +2,8 @@ package projects.web.services.port.out
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import projects.core.usecase.project.BatchImportResult
+import projects.web.projects.port.out.ProjectCreateResponse
+import projects.web.projects.port.out.toResponse
 
 data class ProjectBatchCreateResponse(
     @JsonProperty("totalProcessado")

@@ -90,8 +90,11 @@ Feature: Files Delete by ID
     """
     [
       {
-        "id": "019ca71b-3183-7a8b-8f71-e44a327a7851",
-        "fileName": "document2.pdf"
+        "createdAt":"2026-03-31T11:00:00Z",
+        "fileName":"document2.pdf",
+        "id":"019ca71b-3183-7a8b-8f71-e44a327a7851",
+        "size":2048,
+        "urlS3":"https://bucket.s3.amazonaws.com/items/019ca71b-3183-7a8b-8f71-e44a327a7846/019ca71b-3183-7a8b-8f71-e44a327a7851_document2.pdf"
       }
     ]
     """
