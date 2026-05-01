@@ -39,8 +39,8 @@ Feature: Services Find By Id
       "observations": "Complete service test",
       "supplyVoltage": "127/220V",
       "coordinates": {
-        "latitude": "-23.550520",
-        "longitude": "-46.633308"
+        "latitude": -23.55052,
+        "longitude": -46.633308
       },
       "generatingConsumerUnit": "1234567890",
       "poleDistanceOver30m": false,
@@ -105,8 +105,8 @@ Feature: Services Find By Id
       "observations": "Complete service test",
       "supplyVoltage": "127/220V",
       "coordinates": {
-        "latitude": "-23.550520",
-        "longitude": "-46.633308"
+        "latitude": -23.55052,
+        "longitude": -46.633308
       },
       "generatingConsumerUnit": "1234567890",
       "poleDistanceOver30m": false,

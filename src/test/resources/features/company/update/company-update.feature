@@ -9,7 +9,8 @@ Feature: Company
     """
     {
        "id": "019ca71b-3183-7a8b-8f71-e44a327a7846",
-       "name": "neo energia"
+       "name": "neo energia",
+       "active": true
     }
     """
 
@@ -25,8 +26,13 @@ Feature: Company
     """
     {
        "id": "019ca71b-3183-7a8b-8f71-e44a327a7846",
-       "name": "Neo Energia Companhia de Energia S.A."
+       "name": "Neo Energia Companhia de Energia S.A.",
+       "acronym": null,
+       "code": null,
+       "region": null,
+       "phone": null,
+       "email": null,
+       "active": true
     }
     """
-    Then the table "company" should have 1 records
-
+    Then the table "concessionaires" should have 1 records

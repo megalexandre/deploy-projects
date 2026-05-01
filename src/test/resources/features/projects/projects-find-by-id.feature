@@ -5,6 +5,19 @@ Feature: Project
 
   Scenario: Get by id a project that exists
 
+    Given the following customer exists in the database:
+    """
+    {
+      "id": "da30fcdc-b9ed-402b-a359-de324226bee7",
+      "name": "Cliente Teste",
+      "taxId": "12345678901",
+      "phone": "71999999999",
+      "email": "teste-findbyid@email.com",
+      "createdAt": "2026-02-10T10:00:00Z",
+      "updatedAt": "2026-02-10T10:00:00Z"
+    }
+    """
+
     Given the following project exists in the database:
     """
     {
@@ -56,8 +69,8 @@ Feature: Project
           "Instalação"
       ],
       "coordenadas": {
-        "latitude": "-11.123456",
-        "longitude": "-40.123456"
+        "latitude": -11.123456,
+        "longitude": -40.123456
       },
       "tipo_projeto": "Solar",
       "projeto_fast_track": false,
@@ -68,6 +81,19 @@ Feature: Project
 
 
   Scenario: Get by id a project with address:
+
+    Given the following customer exists in the database:
+    """
+    {
+      "id": "da30fcdc-b9ed-402b-a359-de324226bee7",
+      "name": "Cliente Teste",
+      "taxId": "12345678901",
+      "phone": "71999999999",
+      "email": "teste-findbyid-addr@email.com",
+      "createdAt": "2026-02-10T10:00:00Z",
+      "updatedAt": "2026-02-10T10:00:00Z"
+    }
+    """
 
     Given the following address exists in the database:
     """
@@ -93,8 +119,8 @@ Feature: Project
       "clientId": "da30fcdc-b9ed-402b-a359-de324226bee7",
       "utilityCompany": "CEMIG",
       "coordinates": {
-        "latitude": "-11.123456",
-        "longitude": "-40.123456"
+        "latitude": -11.123456,
+        "longitude": -40.123456
       },
       "utilityProtocol": "PROT-2024-001",
       "customerClass": "Residencial",
@@ -121,8 +147,8 @@ Feature: Project
     """
     {
       "coordenadas": {
-        "latitude": "-11.123456",
-        "longitude": "-40.123456"
+        "latitude": -11.123456,
+        "longitude": -40.123456
       },
       "classe": "Residencial",
       "clienteId": "da30fcdc-b9ed-402b-a359-de324226bee7",

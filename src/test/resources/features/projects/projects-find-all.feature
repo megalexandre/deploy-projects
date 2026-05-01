@@ -14,6 +14,19 @@ Feature: Project
 
   Scenario: Get all projects when there are one project
 
+    Given the following customer exists in the database:
+    """
+    {
+      "id": "da30fcdc-b9ed-402b-a359-de324226bee7",
+      "name": "Cliente Teste",
+      "taxId": "12345678901",
+      "phone": "71999999999",
+      "email": "teste-findall@email.com",
+      "createdAt": "2026-02-10T10:00:00Z",
+      "updatedAt": "2026-02-10T10:00:00Z"
+    }
+    """
+
     Given the following project exists in the database:
     """
     {

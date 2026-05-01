@@ -8,7 +8,8 @@ Feature: Company Find By Id
     """
     {
       "id": "019ca71b-3183-7a8b-8f71-e44a327a7846",
-      "name": "Neo Energia Companhia de Energia S.A."
+      "name": "Neo Energia Companhia de Energia S.A.",
+      "active": true
     }
     """
     When I GET "/company/019ca71b-3183-7a8b-8f71-e44a327a7846"
@@ -17,11 +18,16 @@ Feature: Company Find By Id
     """
     {
       "id": "019ca71b-3183-7a8b-8f71-e44a327a7846",
-      "name": "Neo Energia Companhia de Energia S.A."
+      "name": "Neo Energia Companhia de Energia S.A.",
+      "acronym": null,
+      "code": null,
+      "region": null,
+      "phone": null,
+      "email": null,
+      "active": true
     }
     """
 
   Scenario: Get by id a company that does not exist
     When I GET "/company/019ca71b-3183-7a8b-8f71-e44a327a7999"
     Then the response status code should be 404
-

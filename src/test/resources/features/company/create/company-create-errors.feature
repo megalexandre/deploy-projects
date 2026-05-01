@@ -12,7 +12,7 @@ Feature: Company
     }
     """
     Then the response status code should be 400
-    Then the table "company" should have 0 records
+    Then the table "concessionaires" should have 0 records
 
 
   Scenario: Create a company with more than maximum length name
@@ -24,7 +24,7 @@ Feature: Company
     }
     """
     Then the response status code should be 400
-    Then the table "company" should have 0 records
+    Then the table "concessionaires" should have 0 records
 
   Scenario: Create a company without a name
 
@@ -33,4 +33,4 @@ Feature: Company
     {}
     """
     Then the response status code should be 400
-    Then the table "company" should have 0 records
+    Then the table "concessionaires" should have 0 records

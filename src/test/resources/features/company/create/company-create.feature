@@ -16,10 +16,16 @@ Feature: Company
     """
     {
       "id": "${json-unit.regex}^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
-      "name": "Neo Energia Companhia de Energia S.A."
+      "name": "Neo Energia Companhia de Energia S.A.",
+      "acronym": null,
+      "code": null,
+      "region": null,
+      "phone": null,
+      "email": null,
+      "active": true
     }
     """
-    Then the table "company" should have 1 records
+    Then the table "concessionaires" should have 1 records
 
   Scenario: Create a company with minimum length name
 
@@ -34,10 +40,16 @@ Feature: Company
     """
     {
       "id": "${json-unit.regex}^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
-      "name": "Neo"
+      "name": "Neo",
+      "acronym": null,
+      "code": null,
+      "region": null,
+      "phone": null,
+      "email": null,
+      "active": true
     }
     """
-    Then the table "company" should have 1 records
+    Then the table "concessionaires" should have 1 records
 
   Scenario: Create a company with minimum length name
 
@@ -52,10 +64,16 @@ Feature: Company
     """
     {
       "id": "${json-unit.regex}^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
-      "name": "Neo"
+      "name": "Neo",
+      "acronym": null,
+      "code": null,
+      "region": null,
+      "phone": null,
+      "email": null,
+      "active": true
     }
     """
-    Then the table "company" should have 1 records
+    Then the table "concessionaires" should have 1 records
 
 
   Scenario: Create a company with maximum length name (256 characters)
@@ -71,10 +89,16 @@ Feature: Company
     """
     {
       "id": "${json-unit.regex}^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
-      "name": "Empresa com o nome realmente muito grande, olha só pra isso!!!"
+      "name": "Empresa com o nome realmente muito grande, olha só pra isso!!!",
+      "acronym": null,
+      "code": null,
+      "region": null,
+      "phone": null,
+      "email": null,
+      "active": true
     }
     """
-    Then the table "company" should have 1 records
+    Then the table "concessionaires" should have 1 records
 
   Scenario: Create a company with spaces in the name
 
@@ -89,7 +113,13 @@ Feature: Company
     """
     {
       "id": "${json-unit.regex}^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
-      "name": "Empresa [espacos no inicio ou no final são removidos]"
+      "name": "Empresa [espacos no inicio ou no final são removidos]",
+      "acronym": null,
+      "code": null,
+      "region": null,
+      "phone": null,
+      "email": null,
+      "active": true
     }
     """
-    Then the table "company" should have 1 records
+    Then the table "concessionaires" should have 1 records

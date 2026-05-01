@@ -18,7 +18,8 @@ Feature: Company Find All
     """
     {
       "id": "019ca71b-3183-7a8b-8f71-e44a327a7846",
-      "name": "Neo Energia Companhia de Energia S.A."
+      "name": "Neo Energia Companhia de Energia S.A.",
+      "active": true
     }
     """
 
@@ -29,7 +30,13 @@ Feature: Company Find All
     [
       {
         "id": "019ca71b-3183-7a8b-8f71-e44a327a7846",
-        "name": "Neo Energia Companhia de Energia S.A."
+        "name": "Neo Energia Companhia de Energia S.A.",
+        "acronym": null,
+        "code": null,
+        "region": null,
+        "phone": null,
+        "email": null,
+        "active": true
       }
     ]
     """
@@ -40,7 +47,8 @@ Feature: Company Find All
     """
     {
       "id": "019ca71b-3183-7a8b-8f71-e44a327a7846",
-      "name": "Neo Energia Companhia de Energia S.A."
+      "name": "Neo Energia Companhia de Energia S.A.",
+      "active": true
     }
     """
 
@@ -48,7 +56,8 @@ Feature: Company Find All
     """
     {
       "id": "019ca71b-3183-7a8b-8f71-e44a327a7847",
-      "name": "Companhia Energética de Minas Gerais"
+      "name": "Companhia Energética de Minas Gerais",
+      "active": true
     }
     """
 
@@ -56,7 +65,8 @@ Feature: Company Find All
     """
     {
       "id": "019ca71b-3183-7a8b-8f71-e44a327a7848",
-      "name": "Light Serviços de Eletricidade S.A."
+      "name": "Light Serviços de Eletricidade S.A.",
+      "active": true
     }
     """
 
@@ -67,16 +77,33 @@ Feature: Company Find All
     [
       {
         "id": "019ca71b-3183-7a8b-8f71-e44a327a7846",
-        "name": "Neo Energia Companhia de Energia S.A."
+        "name": "Neo Energia Companhia de Energia S.A.",
+        "acronym": null,
+        "code": null,
+        "region": null,
+        "phone": null,
+        "email": null,
+        "active": true
       },
       {
         "id": "019ca71b-3183-7a8b-8f71-e44a327a7847",
-        "name": "Companhia Energética de Minas Gerais"
+        "name": "Companhia Energética de Minas Gerais",
+        "acronym": null,
+        "code": null,
+        "region": null,
+        "phone": null,
+        "email": null,
+        "active": true
       },
       {
         "id": "019ca71b-3183-7a8b-8f71-e44a327a7848",
-        "name": "Light Serviços de Eletricidade S.A."
+        "name": "Light Serviços de Eletricidade S.A.",
+        "acronym": null,
+        "code": null,
+        "region": null,
+        "phone": null,
+        "email": null,
+        "active": true
       }
     ]
     """
-

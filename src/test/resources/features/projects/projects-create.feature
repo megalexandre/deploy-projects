@@ -5,6 +5,19 @@ Feature: Project
 
   Scenario: Create a project with all field
 
+    Given the following customer exists in the database:
+    """
+    {
+      "id": "da30fcdc-b9ed-402b-a359-de324226bee7",
+      "name": "Cliente Teste",
+      "taxId": "12345678901",
+      "phone": "71999999999",
+      "email": "teste-create-all@email.com",
+      "createdAt": "2026-02-10T10:00:00Z",
+      "updatedAt": "2026-02-10T10:00:00Z"
+    }
+    """
+
     Given the following address exists in the database:
     """
     {
@@ -57,6 +70,19 @@ Feature: Project
     Then the table "projects" should have 1 records
 
   Scenario: Create a project with minimum required fields
+
+    Given the following customer exists in the database:
+    """
+    {
+      "id": "da30fcdc-b9ed-402b-a359-de324226bee7",
+      "name": "Cliente Teste",
+      "taxId": "12345678901",
+      "phone": "71999999999",
+      "email": "teste-create-min@email.com",
+      "createdAt": "2026-02-10T10:00:00Z",
+      "updatedAt": "2026-02-10T10:00:00Z"
+    }
+    """
 
     When I POST the payload to "/projects" with body:
     """
