@@ -133,15 +133,11 @@ open class ProjectCreateRequest (
 
 class CoordinatesCreateRequest(
     @field:JsonProperty("latitude")
-    @field:Size(min = 2)
-    @field:Size(max = 250)
-    val latitude: String?,
+    val latitude: Double?,
 
     @field:JsonProperty("longitude")
-    @field:Size(min = 2)
-    @field:Size(max = 250)
-    val longitude: String?,
-){
+    val longitude: Double?,
+) {
     fun toDomain() = Coordinates(
         latitude = latitude!!,
         longitude = longitude!!

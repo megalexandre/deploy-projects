@@ -2,6 +2,7 @@ package projects.resources.persistence
 
 import jakarta.persistence.*
 import projects.core.model.ServiceEntryItem
+import java.time.Instant
 import java.util.UUID
 
 @Entity
@@ -27,13 +28,26 @@ data class ServiceEntryItemEntity(
 
     @Column(name = "circuit_breaker", nullable = false)
     var circuitBreaker: String,
+
+    @Column(name = "created_at", nullable = false, updatable = false)
+    var createdAt: Instant,
+
+    @Column(name = "updated_at", nullable = false)
+    var updatedAt: Instant,
 ) {
+    @PreUpdate
+    fun preUpdate() {
+        updatedAt = Instant.now()
+    }
+
     fun toDomain() = ServiceEntryItem(
         id = id.toString(),
         connectionType = connectionType,
         classification = classification,
         quantity = quantity,
-        circuitBreaker = circuitBreaker
+        circuitBreaker = circuitBreaker,
+        createdAt = createdAt,
+        updatedAt = updatedAt
     )
 
     companion object {
@@ -43,7 +57,9 @@ data class ServiceEntryItemEntity(
             connectionType = domain.connectionType,
             classification = domain.classification,
             quantity = domain.quantity,
-            circuitBreaker = domain.circuitBreaker
+            circuitBreaker = domain.circuitBreaker,
+            createdAt = domain.createdAt ?: Instant.now(),
+            updatedAt = domain.updatedAt ?: Instant.now()
         )
     }
 }

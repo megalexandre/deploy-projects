@@ -15,7 +15,7 @@ data class AddressEntity(
     @Column(name = "id", nullable = false, updatable = false)
     var id: UUID,
 
-    @Column(name = "link", nullable = false)
+    @Column(name = "link", nullable = true)
     var link: String?,
 
     @Column(name = "place", nullable = false)

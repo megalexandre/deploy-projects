@@ -30,7 +30,9 @@ data class ServiceEntryItem(
     val connectionType: String,
     val classification: String,
     val quantity: Int,
-    val circuitBreaker: String
+    val circuitBreaker: String,
+    val createdAt: Instant? = null,
+    val updatedAt: Instant? = null
 )
 
 data class Apportionment(
@@ -38,5 +40,7 @@ data class Apportionment(
     val consumerUnit: String,
     val address: String,
     val classification: String,
-    val percentage: Int
+    val percentage: Int,
+    val createdAt: Instant? = null,
+    val updatedAt: Instant? = null
 )

@@ -27,7 +27,7 @@ class ServiceFindByIdResponse(
     val apportionments: List<ApportionmentResponse>,
 )
 
-class CoordinatesResponse(val latitude: String, val longitude: String)
+class CoordinatesResponse(val latitude: Double, val longitude: Double)
 
 class AddressResponse(
     val id: String,

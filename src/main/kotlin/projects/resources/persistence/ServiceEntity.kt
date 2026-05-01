@@ -43,10 +43,10 @@ data class ServiceEntity(
     var supplyVoltage: String?,
 
     @Column(name = "latitude")
-    var latitude: String?,
+    var latitude: Double?,
 
     @Column(name = "longitude")
-    var longitude: String?,
+    var longitude: Double?,
 
     @Column(name = "generating_consumer_unit")
     var generatingConsumerUnit: String?,

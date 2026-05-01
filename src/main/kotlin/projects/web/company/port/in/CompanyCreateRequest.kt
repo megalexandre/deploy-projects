@@ -12,9 +12,22 @@ open class CompanyCreateRequest(
     @field:NotBlank(message = "{company.name.notBlank}")
     @field:Size(min = 3, max = 256, message = "{company.name.size}")
     val name: String?,
+
+    val acronym: String? = null,
+    val code: String? = null,
+    val region: String? = null,
+    val phone: String? = null,
+    val email: String? = null,
+    val active: Boolean = true,
 ) {
     open fun toDomain() = Company(
         id = Id.random(),
         name = name!!.trim(),
+        acronym = acronym,
+        code = code,
+        region = region,
+        phone = phone,
+        email = email,
+        active = active,
     )
 }

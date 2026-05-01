@@ -2,7 +2,7 @@ package projects.core.model
 
 import java.time.Instant
 
-class Customer (
+data class Customer(
     val id: String,
     val name: String,
     val taxId: String,

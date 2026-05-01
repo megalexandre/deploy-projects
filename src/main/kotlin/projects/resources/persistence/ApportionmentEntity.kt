@@ -2,6 +2,7 @@ package projects.resources.persistence
 
 import jakarta.persistence.*
 import projects.core.model.Apportionment
+import java.time.Instant
 import java.util.UUID
 
 @Entity
@@ -22,18 +23,31 @@ data class ApportionmentEntity(
     @Column(name = "address", nullable = false)
     var address: String,
 
-    @Column(name = "\"class\"", nullable = false)
+    @Column(name = "classification", nullable = false)
     var classification: String,
 
     @Column(name = "percentage", nullable = false)
     var percentage: Int,
+
+    @Column(name = "created_at", nullable = false, updatable = false)
+    var createdAt: Instant,
+
+    @Column(name = "updated_at", nullable = false)
+    var updatedAt: Instant,
 ) {
+    @PreUpdate
+    fun preUpdate() {
+        updatedAt = Instant.now()
+    }
+
     fun toDomain() = Apportionment(
         id = id.toString(),
         consumerUnit = consumerUnit,
         address = address,
         classification = classification,
-        percentage = percentage
+        percentage = percentage,
+        createdAt = createdAt,
+        updatedAt = updatedAt
     )
 
     companion object {
@@ -43,7 +57,9 @@ data class ApportionmentEntity(
             consumerUnit = domain.consumerUnit,
             address = domain.address,
             classification = domain.classification,
-            percentage = domain.percentage
+            percentage = domain.percentage,
+            createdAt = domain.createdAt ?: Instant.now(),
+            updatedAt = domain.updatedAt ?: Instant.now()
         )
     }
 }

@@ -1,6 +1,9 @@
 package projects.resources.persistence
 
 import jakarta.persistence.*
+import org.apache.tomcat.jni.Buffer.address
+import org.hibernate.annotations.JdbcTypeCode
+import org.hibernate.type.SqlTypes
 import projects.core.model.Coordinates
 import projects.core.model.Project
 import java.math.BigDecimal
@@ -61,11 +64,11 @@ data class ProjectEntity(
     @Column(name = "updated_at", nullable = false)
     var updatedAt: Instant,
 
-    @Column(name = "latitude")
-    var latitude: String?,
+    @Column(name = "latitude", columnDefinition = "numeric")
+    var latitude: Double?,
 
-    @Column(name = "longitude")
-    var longitude: String?,
+    @Column(name = "longitude", columnDefinition = "numeric")
+    var longitude: Double?,
 
     @Column(name = "unit_control", nullable = false)
     var unitControl: String,
@@ -73,15 +76,16 @@ data class ProjectEntity(
     @Column(name = "description", length = 1024)
     var description: String?,
 
-    @Column(name = "services_names")
-    var servicesNames: String?,
+    @JdbcTypeCode(SqlTypes.ARRAY)
+    @Column(name = "services_names", columnDefinition = "text[]")
+    var servicesNames: Array<String>?,
 
     @Column(name = "project_type", nullable = false)
     var projectType: String,
 
     @Column(name = "fast_track", nullable = false)
     var fastTrack: Boolean,
-    ) {
+) {
 
     @PreUpdate
     fun preUpdate() {
@@ -90,8 +94,8 @@ data class ProjectEntity(
 
     fun toDomain(): Project {
         val lat = latitude
-        val long = longitude
-        val coordinates = if (lat != null && long != null) Coordinates(lat, long) else null
+        val lng = longitude
+        val coordinates = if (lat != null && lng != null) Coordinates(lat, lng) else null
 
         return Project(
             id = id.toString(),
@@ -112,7 +116,7 @@ data class ProjectEntity(
             coordinates = coordinates,
             unitControl = unitControl,
             description = description,
-            servicesNames = servicesNames?.split(",")?.map { it.trim() },
+            servicesNames = servicesNames?.toList(),
             projectType = projectType,
             fastTrack = fastTrack,
             updatedAt = updatedAt
@@ -122,9 +126,9 @@ data class ProjectEntity(
     companion object {
         fun from(domain: Project): ProjectEntity =
             ProjectEntity(
-                id = UUID.fromString(domain.id) ,
+                id = UUID.fromString(domain.id),
                 clientId = UUID.fromString(domain.clientId),
-                addressId = domain.addressId?.let {  UUID.fromString(it)} ,
+                addressId = domain.addressId?.let { UUID.fromString(it) },
                 address = domain.address?.let { AddressEntity.from(it) },
                 utilityCompany = domain.utilityCompany,
                 utilityProtocol = domain.utilityProtocol,
@@ -140,7 +144,7 @@ data class ProjectEntity(
                 longitude = domain.coordinates?.longitude,
                 unitControl = domain.unitControl,
                 description = domain.description,
-                servicesNames = domain.servicesNames?.joinToString(","),
+                servicesNames = domain.servicesNames?.toTypedArray(),
                 projectType = domain.projectType,
                 fastTrack = domain.fastTrack,
                 createdAt = domain.createdAt ?: Instant.now(),

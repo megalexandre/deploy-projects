@@ -29,6 +29,6 @@ data class Project(
 )
 
 data class Coordinates(
-    val latitude: String,
-    val longitude: String
+    val latitude: Double,
+    val longitude: Double
 )

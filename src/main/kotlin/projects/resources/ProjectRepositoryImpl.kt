@@ -6,39 +6,33 @@ import org.springframework.data.jpa.repository.Query
 import org.springframework.stereotype.Repository
 import projects.core.model.Project
 import projects.core.respository.ProjectRepository
-import projects.infra.security.CurrentUserProvider
 import projects.resources.persistence.ProjectEntity
 import java.util.*
 
 @Repository
 class ProjectRepositoryImpl(
     private val jpa: SpringDataProjectRepository,
-    private val currentUserProvider: CurrentUserProvider,
-): ProjectRepository {
+) : ProjectRepository {
 
-    override fun save(t: Project): Project  =
-         jpa.save(ProjectEntity.from(t)).toDomain()
+    override fun save(t: Project): Project =
+        jpa.save(ProjectEntity.from(t)).toDomain()
 
     override fun delete(id: String) {
         val key = UUID.fromString(id)
-
         if (jpa.existsById(key)) {
             jpa.deleteById(key)
         }
     }
 
-    override fun findAll(): List<Project>{
-        currentUserProvider.getCurrentUser()?.userId
-        return jpa.findAll(Sort.by(Sort.Direction.ASC, "id")).map { it.toDomain() }
-    }
+    override fun findAll(): List<Project> =
+        jpa.findAll(Sort.by(Sort.Direction.ASC, "id")).map { it.toDomain() }
 
     override fun findById(id: String): Project? =
         jpa.findByIdWithAddress(UUID.fromString(id)).orElse(null)?.toDomain()
-
 }
 
 @Repository
-interface SpringDataProjectRepository : JpaRepository<ProjectEntity, UUID>{
+interface SpringDataProjectRepository : JpaRepository<ProjectEntity, UUID> {
     @Query("SELECT p FROM ProjectEntity p LEFT JOIN FETCH p.address WHERE p.id = :id")
     fun findByIdWithAddress(id: UUID): Optional<ProjectEntity>
 }
