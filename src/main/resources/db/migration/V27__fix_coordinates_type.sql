@@ -1,0 +1,7 @@
+ALTER TABLE projects
+    ALTER COLUMN latitude  TYPE DECIMAL(9,6) USING latitude::DECIMAL,
+    ALTER COLUMN longitude TYPE DECIMAL(9,6) USING longitude::DECIMAL;
+
+ALTER TABLE services
+    ALTER COLUMN latitude  TYPE DECIMAL(9,6) USING latitude::DECIMAL,
+    ALTER COLUMN longitude TYPE DECIMAL(9,6) USING longitude::DECIMAL;
