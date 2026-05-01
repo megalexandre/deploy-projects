@@ -109,18 +109,25 @@ class GlobalExceptionHandler {
         val message = ex.rootCause?.message ?: ex.message ?: ""
 
         return when {
-            message.contains("users_email_key", ignoreCase = true) -> {
-                ErrorResponse(
-                    status = HttpStatus.CONFLICT.value(),
-                    message = "Email already exists",
-                    errors = mapOf("email" to "This email is already registered")
-                )
-            }
             message.contains("users_name_key", ignoreCase = true) -> {
                 ErrorResponse(
                     status = HttpStatus.CONFLICT.value(),
                     message = "Name already exists",
                     errors = mapOf("name" to "This name is already in use")
+                )
+            }
+            message.contains("customers_tax_id_key", ignoreCase = true) -> {
+                ErrorResponse(
+                    status = HttpStatus.CONFLICT.value(),
+                    message = "Tax ID already exists",
+                    errors = mapOf("cpfCnpj" to "This tax ID is already registered")
+                )
+            }
+            message.contains("customers_email_key", ignoreCase = true) -> {
+                ErrorResponse(
+                    status = HttpStatus.CONFLICT.value(),
+                    message = "Email already exists",
+                    errors = mapOf("email" to "This email is already registered")
                 )
             }
             message.contains("duplicate key", ignoreCase = true) -> {
@@ -163,6 +170,3 @@ class GlobalExceptionHandler {
         )
     }
 }
-
-
-

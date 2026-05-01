@@ -151,4 +151,64 @@ data class ProjectEntity(
                 updatedAt = domain.updatedAt ?: Instant.now()
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as ProjectEntity
+
+        if (systemPower != other.systemPower) return false
+        if (latitude != other.latitude) return false
+        if (longitude != other.longitude) return false
+        if (fastTrack != other.fastTrack) return false
+        if (id != other.id) return false
+        if (clientId != other.clientId) return false
+        if (addressId != other.addressId) return false
+        if (address != other.address) return false
+        if (utilityCompany != other.utilityCompany) return false
+        if (utilityProtocol != other.utilityProtocol) return false
+        if (customerClass != other.customerClass) return false
+        if (integrator != other.integrator) return false
+        if (modality != other.modality) return false
+        if (framework != other.framework) return false
+        if (status != other.status) return false
+        if (amount != other.amount) return false
+        if (dcProtection != other.dcProtection) return false
+        if (createdAt != other.createdAt) return false
+        if (updatedAt != other.updatedAt) return false
+        if (unitControl != other.unitControl) return false
+        if (description != other.description) return false
+        if (!servicesNames.contentEquals(other.servicesNames)) return false
+        if (projectType != other.projectType) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = systemPower?.hashCode() ?: 0
+        result = 31 * result + (latitude?.hashCode() ?: 0)
+        result = 31 * result + (longitude?.hashCode() ?: 0)
+        result = 31 * result + fastTrack.hashCode()
+        result = 31 * result + id.hashCode()
+        result = 31 * result + clientId.hashCode()
+        result = 31 * result + (addressId?.hashCode() ?: 0)
+        result = 31 * result + (address?.hashCode() ?: 0)
+        result = 31 * result + utilityCompany.hashCode()
+        result = 31 * result + utilityProtocol.hashCode()
+        result = 31 * result + customerClass.hashCode()
+        result = 31 * result + integrator.hashCode()
+        result = 31 * result + modality.hashCode()
+        result = 31 * result + framework.hashCode()
+        result = 31 * result + status.hashCode()
+        result = 31 * result + amount.hashCode()
+        result = 31 * result + (dcProtection?.hashCode() ?: 0)
+        result = 31 * result + createdAt.hashCode()
+        result = 31 * result + updatedAt.hashCode()
+        result = 31 * result + unitControl.hashCode()
+        result = 31 * result + (description?.hashCode() ?: 0)
+        result = 31 * result + (servicesNames?.contentHashCode() ?: 0)
+        result = 31 * result + projectType.hashCode()
+        return result
+    }
 }
